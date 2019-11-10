@@ -1,3 +1,4 @@
+pytest
 requests==2.20.1
 spacy==2.2.1
 Flask==1.0.2
