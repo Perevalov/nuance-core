@@ -1,0 +1,12 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+
+SELECT ( bif:st_distance( ?nyl,?ll ) )
+      AS ?distanceBetweenCities
+WHERE
+{{
+    <{0}>
+    geo:geometry ?nyl .
+    <{1}>
+    geo:geometry ?ll  .
+}}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>QA System</title>
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic">
+    <link rel="stylesheet" href="../static/css/Features-Boxed.css">
+<script>
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover();   
+});
+</script>
+</head>
+
+<body>
+    <section class="showcase"></section>
+    <section class="call-to-action text-white text-center" style="background:url(&quot;../static/img/bg-masthead.jpg&quot;) no-repeat center center;background-size:cover;">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 mx-auto">
+                    <h2 class="mb-4" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">Type your question here</h2>
+                </div>
+                <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                    <form action="/get_answer" method="POST">
+                        <div class="form-row">
+                            <div class="col-12 col-md-9 mb-2 mb-md-0"><input class="form-control form-control-lg" name="question_text" type="text" placeholder="How many people live in Los Angeles?"><div id="question_pattern_description"><div></div></div></div>
+                            <div class="col-12 col-md-3"><button class="btn btn-primary btn-block btn-lg" type="submit" >Search</button></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div>
+        <div class="container">
+            <div class="row"  style="margin-top: 25px;">
+
+                <!--<div class="col-md-6"><strong>Berlin</strong>
+                    <div class="alert alert-success" role="alert"><span><strong>Berlin is the capital of Germany, whose history goes back to the 13th century. On the difficult history of the city in the XX century. reminiscent of the Holocaust Memorial and graffiti on the ruins of the Berlin Wall. The Brandenburg Gate, built in the 18th century, is known as a symbol of the reunification of Berlin, which was divided into two parts during the Cold War. The city is also famous for its art galleries and modern sights, for example, a gold-colored philharmonic hall built in 1963 with a roof in the shape of a circus tent.n</strong></span></div>
+                </div>
+                <div class="col-md-6"><img  style="height: 250px;" src="../static/img/berlin.jpg"></div>-->
+
+                {% if session['response'] %}
+                    <h2>{{ session['response'] }}</h2>
+                {% endif %}
+            </div>
+
+	    <!--<div class="row"  style="margin-top: 25px;">
+                <div class="col-md-6"><strong>Leipzig</strong>
+                    <div class="alert alert-success" role="alert"><span><strong>Leipzig is a city in the federal state of Saxony in eastern Germany. In the center of the Market Square stands the building of the old Renaissance town hall, which now houses the exposition of the City History Museum. One of the attractions of Leipzig is the grave of composer Johann Sebastian Bach in the Gothic church of St. Thomas. The latter is also famous for its choir of boys. Another famous church - the Church of St. Nicholas - in 1989 served as a meeting place for participants in the "Monday demonstrations" who overthrew the communist regime in the country.</strong></span></div>
+                </div>
+                <div class="col-md-6"><img  style="height: 250px;" src="../static/img/leipzig.jpg"></div>
+            </div>-->
+        </div>
+    </div>
+    <div></div>
+    <div class="features-boxed">
+        <div class="container">
+            <div class="intro"></div>
+        </div>
+    </div>
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/chat_script.js"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

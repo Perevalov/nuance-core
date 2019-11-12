@@ -1,0 +1,15 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+SELECT *
+WHERE
+{{
+ ?s rdf:type dbo:City .
+ ?s rdfs:label ?cityLabel .
+ filter(contains(?cityLabel,"{0}")) .
+ filter(LANG(?cityLabel) = "en") .
+ ?s dbo:populationTotal ?numberOfInhabitants .
+ ?s dbo:country <http://dbpedia.org/resource/United_States> .
+ <http://dbpedia.org/resource/United_States> rdfs:label ?countryLabel .
+ filter(LANG(?countryLabel) = "en") .
+}}
