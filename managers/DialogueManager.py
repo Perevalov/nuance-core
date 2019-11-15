@@ -10,12 +10,12 @@ class DialogueManager:
         self.ner = ner
         self.sparql = sparql
 
-    def validate_question(self, q_class, annotation):
-        #TODO validate all parameters
+    def validate_question(self, q_class: str, annotation_dict):
+        #TODO map question class to a query class
         return True
 
     def get_sparql(self, q_class, params):
-
+        # TODO map question class to a query class
         with open(os.path.join(config.INTENTS_PATH, q_class, "query.sparql")) as f:
             query = f.read()
 
@@ -28,10 +28,11 @@ class DialogueManager:
     def get_answer(self, question_text):
         q_class = self.classifier.get_class(question_text)
 
-        annotation = ner.annotate_text({"text": question_text, "confidence": 0.3})
+        annotation_dict = ner.annotate_text({"text": question_text, "confidence": 0.3})
 
-        if self.validate_question(q_class, annotation):
-            query = self.get_sparql(q_class, annotation)
+        if self.validate_question(q_class, annotation_dict):
+            query = self.get_sparql(q_class, annotation_dict)
+            #TODO retreive a type of query (backward or forward)
             result = sparql.execute_query({"query": query})
             text_response = TemplateGenerator.generate_answer(q_class, result)
             return text_response

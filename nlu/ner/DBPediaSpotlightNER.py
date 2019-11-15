@@ -8,14 +8,8 @@ def annotate_text(params):
 
     entities_dict = dict()
 
-    for res in response["Resources"]:
-        if any(word.lower() in res["@types"].lower() for word in constants.PERSON_KEYWORDS):
-            entities_dict[res["@URI"]] = "person"
-        elif any(word.lower() in res["@types"].lower() for word in constants.CITY_KEYWORDS):
-            entities_dict[res["@URI"]] = "city"
-        elif any(word.lower() in res["@types"].lower() for word in constants.COUNTRY_KEYWORDS):
-            entities_dict[res["@URI"]] = "country"
-        elif any(word.lower() in res["@URI"].lower() for word in constants.MONTH_KEYWORDS):
-            entities_dict[res["@URI"]] = "month"
+    for resource in response['Resources']:
+        if len(resource['@types']) > 0:
+            entities_dict[resource["@URI"]] = resource['@types']
 
     return entities_dict

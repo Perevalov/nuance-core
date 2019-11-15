@@ -1,0 +1,14 @@
+{
+  "forward": [
+    "query"
+  ],
+  "backward": [
+    "query"
+  ],
+  "distance": [
+    "query"
+  ],
+  "boolean": [
+    "query"
+  ]
+}

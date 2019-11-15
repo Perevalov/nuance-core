@@ -1,0 +1,11 @@
+{
+  "intents": {
+    "city": {
+      "keywords": [
+        "",
+        ""
+      ],
+      "query_type": "forward"
+    }
+  }
+}
