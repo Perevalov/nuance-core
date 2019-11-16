@@ -1,11 +1,64 @@
 {
-  "intents": {
-    "city": {
+  "city_population": {
+    "keywords": [
+      "inhabitants",
+      "people",
+      "live",
+      "citizens",
+      "much",
+      "population"
+    ],
+    "query_type": "forward",
+    "predicates": "http://dbpedia.org/ontology/populationTotal",
+    "answer_templates": ["The population in requested city is {result} people"]
+    } ,
+  "distance": {
+    "keywords": [
+      "calculate",
+      "distance",
+      "between"
+    ],
+    "query_type": "distance",
+    "answer_templates": ["The distance between these cities is {result} km"]
+    } ,
+  "genre": {
+    "keywords": [
+      "music",
+      "genre",
+      "album",
+      "song"
+    ],
+    "query_type": "backward",
+    "predicates": "http://dbpedia.org/ontology/genre",
+    "answer_templates": ["Would you like to listen for {result}"]
+    } ,
+  "time_zone": {
+    "keywords": [
+      "timezone",
+      "time zone"
+    ],
+    "query_type": "forward",
+    "predicates": "http://dbpedia.org/property/timezone",
+    "answer_templates": ["The timezone is {result}"]
+    } ,
+    "was_born": {
       "keywords": [
-        "",
-        ""
+        "city",
+        "country",
+        "born",
+        "where"
       ],
-      "query_type": "forward"
+      "query_type": "boolean",
+      "answer_templates": [""]
+    },
+    "located_in": {
+    "keywords": [
+      "where",
+      "located",
+      "happen"
+    ],
+    "query_type": "forward",
+    "predicates": "http://dbpedia.org/ontology/location",
+    "answer_templates": ["That's located in {result}"]
     }
-  }
 }

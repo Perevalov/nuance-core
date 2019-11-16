@@ -1,20 +1,22 @@
+import random
+from resources.constants import TEMPLATES
 
-def generate_answer(q_class, sparql_result):
-    if "results" in sparql_result.keys() and len(sparql_result["results"]["bindings"]) > 0:
-        if q_class == "distance":
+
+def generate_answer(intents_dict, intent, sparql_result):
+    #TODO receive annotation parameters and customize responses
+
+    if "results" in sparql_result.keys() and len(list(sparql_result["results"]["bindings"][0].keys())) > 0:
+        if intent == "distance":
             dist = sparql_result["results"]["bindings"][0]["distanceBetweenCities"]["value"]
             template = "The distance between these cities is {0} km".format(dist)
             return template
-        if q_class == "temp-month":
-            dist = sparql_result["results"]["bindings"][0]["tempMonth"]["value"]
-            template = "The temperature equals {0} degrees".format(dist)
+        else:
+            result = random.choice(sparql_result["results"]["bindings"])["a"]["value"]
+            template = random.choice(intents_dict[intent][TEMPLATES]).format(result=result)
             return template
-        if q_class == "city":
-            amount = sparql_result["results"]["bindings"][0]["numberOfInhabitants"]["value"]
-            template = "The amount of people living in this city is {0} ".format(amount)
-            return template
+
     elif "boolean" in sparql_result.keys():
-        if q_class == "was-born":
+        if intent == "was_born":
             res = sparql_result["boolean"]
             if res:
                 template = "Yes, it is true."
