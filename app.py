@@ -18,7 +18,7 @@ with open(os.path.join(config.INTENTS_PATH, 'sparql_templates.json')) as json_fi
     sparql = json.load(json_file)
 
 classifier = KeywordClassifier(intents)
-dialogue_manager = DialogueManager(classifier=classifier, intents=intents, sparql=sparql)
+dialogue_manager = DialogueManager(classifier=classifier, intents=intents, sparql_templates=sparql)
 
 
 @app.route("/")

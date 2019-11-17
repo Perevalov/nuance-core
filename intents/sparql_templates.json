@@ -1,18 +1,35 @@
 {
+  "global_prefixes": "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX dbo: <http://dbpedia.org/ontology/> ",
   "forward": {
-    "query": "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX dbo: <http://dbpedia.org/ontology/> SELECT ?a WHERE {{ OPTIONAL {{ <{entity}> <{predicate}> ?a . }}}}",
+    "query": {
+      "head": " SELECT ?a WHERE { ",
+      "body": " OPTIONAL {{ <{entity}> <{predicate}> ?a . }} ",
+      "closure": "}"
+    },
     "parameters_number": 1
   },
   "backward": {
-    "query": "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX dbo: <http://dbpedia.org/ontology/> SELECT ?a WHERE {{ OPTIONAL {{ ?a <{predicate}> <{entity}> . }}}}",
+    "query": {
+      "head": "SELECT ?a WHERE { ",
+      "body": "  OPTIONAL {{ ?a <{predicate}> <{entity}> . }} ",
+      "closure": "}"
+    },
     "parameters_number": 1
   },
   "distance": {
-    "query": "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX dbo: <http://dbpedia.org/ontology/> SELECT ( bif:st_distance( ?nyl,?ll ) ) AS ?distanceBetweenCities WHERE {{ <{point_1}> geo:geometry ?nyl . <{point_2}> geo:geometry ?ll  . }}",
-    "parameters_number": 2
+    "query": {
+      "head": " SELECT ( bif:st_distance( ?nyl,?ll ) ) AS ?distanceBetweenCities WHERE { ",
+      "body": "<{point_1}> geo:geometry ?nyl . <{point_2}> geo:geometry ?ll  .",
+      "closure": "}"
+    },
+      "parameters_number": 2
   },
   "boolean": {
-    "query": "PREFIX dbr: <http://dbpedia.org/resource/> PREFIX dbo: <http://dbpedia.org/ontology/> ASK where {{ <{entity_1}> dbo:birthPlace <{entity_2}> . }}",
+    "query": {
+      "head": "PREFIX dbr: <http://dbpedia.org/resource/> ASK where { ",
+      "body": " <{entity_1}> dbo:birthPlace <{entity_2}> . ",
+      "closure": " }"
+    },
     "parameters_number": 2
   }
 }

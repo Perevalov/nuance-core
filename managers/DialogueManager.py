@@ -1,22 +1,24 @@
 from nlu.ner import DBPediaSpotlightNER as ner
 from dblayer import SPARQLWorker as sparql
 from nlg import TemplateGenerator
-from resources.constants import PARAMETER_NUM, QUERY_TYPE, QUERY, PREDICATE, FALLBACK_CLASS
+from SPARQL.sparql_builder import SPARQLBuilder, generate_label_query
+from resources.constants import PARAMETER_NUM, QUERY_TYPE, QUERY, PREDICATES, FALLBACK_CLASS
 from resources.utils import preprocess_text
 
 
 class DialogueManager:
-    def __init__(self, classifier, sparql, intents):
+    def __init__(self, classifier, sparql_templates, intents):
         """
 
         :param classifier:
-        :param sparql:
+        :param sparql_templates:
         :param intents:
         """
 
         self.classifier = classifier
-        self.sparql = sparql
         self.intents = intents
+        self.sparql_templates = sparql_templates
+        self.builder = SPARQLBuilder(self.sparql_templates)
 
     def validate_question(self, q_class: str, annotation_dict):
         """
@@ -28,31 +30,28 @@ class DialogueManager:
 
         query_type = self.intents[q_class][QUERY_TYPE]
 
-        tmp = self.sparql[query_type][PARAMETER_NUM]
+        # TODO remove debug tmp variables
+        tmp = self.sparql_templates[query_type][PARAMETER_NUM]
         tmp1 = len(list(annotation_dict.keys()))
-        if len(list(annotation_dict.keys())) == int(self.sparql[query_type][PARAMETER_NUM]):
+        if len(list(annotation_dict.keys())) == int(self.sparql_templates[query_type][PARAMETER_NUM]):
             return True
         else:
             return False
 
-    def get_sparql(self, question_intent, params):
+    def get_sparql(self, question_intent, entities):
         # TODO add optional statement loop and modify intents.
 
         query_type = self.intents[question_intent][QUERY_TYPE]
-        query = self.sparql[query_type][QUERY]
+        predicates: list
+        # Not every question_intent has predicates assigned to it, so we need to move on even if none are found
+        try:
+            predicates = list(self.intents[question_intent][PREDICATES])
+        except KeyError:
+            predicates = list()
 
-        if query_type == "forward" or query_type == "backward":
-            predicate = self.intents[question_intent][PREDICATE]
-            query = query.format(entity=list(params.keys())[0], predicate=predicate)
-        elif query_type == "distance":
-            query = query.format(point_1=list(params.keys())[0], point_2=list(params.keys())[1])
-        elif query_type == "boolean":
-            # TODO Add relation classifier
-            #predicate = self.intents[question_intent][PREDICATE]
-            query = query.format(entity_1=list(params.keys())[0], entity_2=list(params.keys())[1])
+        query = self.builder.generate_sparql(query_type, entities, predicates)
 
         return query
-
 
     def get_answer(self, question_text):
         """
@@ -70,7 +69,7 @@ class DialogueManager:
         annotation_dict = ner.annotate_text({"text": preprocessed_text, "confidence": 0.3})
 
         if self.validate_question(intent, annotation_dict):
-            query = self.get_sparql(intent, annotation_dict)
+            query = self.get_sparql(intent, list(annotation_dict.keys()))
             result = sparql.execute_query({"query": query})
             text_response = TemplateGenerator.generate_answer(self.intents, intent, result)
             return text_response

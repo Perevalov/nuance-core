@@ -11,8 +11,12 @@ MONTH_KEYWORDS = ["january", "february", "march", "april", "may", "june", "july"
 
 QUERY_TYPE = "query_type"
 PARAMETER_NUM = "parameters_number"
+PREFIXES = "global_prefixes"
 QUERY = "query"
-PREDICATE = "predicates"
+QUERY_HEAD = "head"
+QUERY_BODY = "body"
+QUERY_CLOSURE = "closure"
+PREDICATES = "predicates"
 KEYWORDS = "keywords"
 TEMPLATES = "answer_templates"
 

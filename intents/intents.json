@@ -9,7 +9,7 @@
       "population"
     ],
     "query_type": "forward",
-    "predicates": "http://dbpedia.org/ontology/populationTotal",
+    "predicates": ["http://dbpedia.org/ontology/populationTotal"],
     "answer_templates": ["The population in requested city is {result} people"]
     } ,
   "distance": {
@@ -29,7 +29,7 @@
       "song"
     ],
     "query_type": "backward",
-    "predicates": "http://dbpedia.org/ontology/genre",
+    "predicates": ["http://dbpedia.org/ontology/genre"],
     "answer_templates": ["Would you like to listen for {result}"]
     } ,
   "time_zone": {
@@ -38,7 +38,7 @@
       "time zone"
     ],
     "query_type": "forward",
-    "predicates": "http://dbpedia.org/property/timezone",
+    "predicates": ["http://dbpedia.org/property/timezone"],
     "answer_templates": ["The timezone is {result}"]
     } ,
     "was_born": {
@@ -58,7 +58,7 @@
       "happen"
     ],
     "query_type": "forward",
-    "predicates": "http://dbpedia.org/ontology/location",
+    "predicates": ["http://dbpedia.org/ontology/location"],
     "answer_templates": ["That's located in {result}"]
     }
 }
