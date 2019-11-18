@@ -1,3 +1,8 @@
+import nltk
+
+nltk.download('stopwords')
+nltk.download('wordnet')
+
 from flask import Flask, render_template, request
 from datetime import datetime
 from managers.DialogueManager import DialogueManager
