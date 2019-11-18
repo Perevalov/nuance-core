@@ -11,8 +11,18 @@ def generate_answer(intents_dict, intent, sparql_result):
             template = "The distance between these cities is {0} km".format(dist)
             return template
         else:
+            for binding in sparql_result["results"]["bindings"]:
+                if "aLabel" in binding and \
+                        len(binding["aLabel"]) > 0:
+
+                    result = binding["aLabel"]["value"]
+                    template = random.choice(intents_dict[intent][TEMPLATES]).format(result=result)
+
+                    return template
+
             result = random.choice(sparql_result["results"]["bindings"])["a"]["value"]
             template = random.choice(intents_dict[intent][TEMPLATES]).format(result=result)
+
             return template
 
     elif "boolean" in sparql_result.keys():

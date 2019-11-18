@@ -28,12 +28,14 @@ def index():
 
 @app.route("/get_answer", methods=['GET'])
 def get_answer():
-    print("get_answer Started")
+    print("[/get_answer] Started")
     question_text = request.args.get("user_text")
+    print("Original question text: {0}".format(question_text))
 
     answer_text = dialogue_manager.get_answer(question_text)
+    print("Answer text is: {0}".format(answer_text))
 
-    response_array = list()
+    print("[/get_answer] Ended")
 
     return json.dumps({"system_text": answer_text})
 

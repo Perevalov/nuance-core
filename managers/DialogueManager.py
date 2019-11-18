@@ -70,8 +70,9 @@ class DialogueManager:
 
         if self.validate_question(intent, annotation_dict):
             query = self.get_sparql(intent, list(annotation_dict.keys()))
+            print("[SPARQL Query]: {0}".format(query))
             result = sparql.execute_query({"query": query})
             text_response = TemplateGenerator.generate_answer(self.intents, intent, result)
             return text_response
 
-        return "Sorry, not enough information please ask again in different way"
+        return "Sorry, please ask again in different way"

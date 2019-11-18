@@ -2,16 +2,16 @@
   "global_prefixes": "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX dbo: <http://dbpedia.org/ontology/> ",
   "forward": {
     "query": {
-      "head": " SELECT ?a WHERE { ",
-      "body": " OPTIONAL {{ <{entity}> <{predicate}> ?a . }} ",
+      "head": " SELECT ?a ?aLabel WHERE { ",
+      "body": " OPTIONAL {{ {{ OPTIONAL {{ <{entity}> <{predicate}> ?a . }} }} UNION {{ OPTIONAL {{ <{entity}> <{predicate}> ?a . ?a rdfs:label ?aLabel . FILTER(LANG(?aLabel) = \"en\") . }} }} }}",
       "closure": "}"
     },
     "parameters_number": 1
   },
   "backward": {
     "query": {
-      "head": "SELECT ?a WHERE { ",
-      "body": "  OPTIONAL {{ ?a <{predicate}> <{entity}> . }} ",
+      "head": "SELECT ?a ?aLabel WHERE { ",
+      "body": "OPTIONAL {{ {{ OPTIONAL {{ ?a <{predicate}> <{entity}> . }} UNION {{ OPTIONAL {{ <{entity}> <{predicate}> ?a . ?a rdfs:label ?aLabel . FILTER(LANG(?aLabel) = \"en\") . }} }} }}",
       "closure": "}"
     },
     "parameters_number": 1

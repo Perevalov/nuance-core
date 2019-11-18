@@ -8,8 +8,9 @@ def annotate_text(params):
 
     entities_dict = dict()
 
-    for resource in response['Resources']:
-        if len(resource['@types']) > 0 and "Disease" not in resource["@types"] and "Webpage" not in resource["@types"]:
-            entities_dict[resource["@URI"]] = resource['@types']
+    if 'Resources' in response:
+        for resource in response['Resources']:
+            if len(resource['@types']) > 0 and "Disease" not in resource["@types"]:
+                entities_dict[resource["@URI"]] = resource['@types']
 
     return entities_dict
