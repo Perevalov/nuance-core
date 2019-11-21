@@ -1,4 +1,5 @@
-from resources.constants import PARAMETER_NUM, QUERY, QUERY_TYPE, QUERY_HEAD, QUERY_BODY, QUERY_CLOSURE, PREDICATES, FALLBACK_CLASS, PREFIXES
+from resources.constants import PARAMETER_NUM, QUERY, QUERY_TYPE, QUERY_HEAD, QUERY_BODY, QUERY_CLOSURE, PREDICATES,\
+    FALLBACK_CLASS, PREFIXES, QUERY_VALUES
 
 
 def generate_label_query(result: str):
@@ -27,8 +28,9 @@ class SPARQLBuilder:
         body = ''
         if query_type == "forward" or query_type == "backward":
             # This will produce an optional statement for each of the given relations
-            for relation in relations:
-                body += self.sparql_templates[query_type][QUERY][QUERY_BODY].format(entity=entities[0], predicate=relation)
+            values = ' '.join("<{0}>".format(relation) for relation in relations)
+            body += self.sparql_templates[query_type][QUERY][QUERY_VALUES].format(values=values)
+            body += self.sparql_templates[query_type][QUERY][QUERY_BODY].format(entity=entities[0])
 
         elif query_type == "distance":
             body = self.sparql_templates[query_type][QUERY][QUERY_BODY].format(point_1=entities[0], point_2=entities[1])

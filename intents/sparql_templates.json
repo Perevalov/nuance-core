@@ -3,7 +3,8 @@
   "forward": {
     "query": {
       "head": " SELECT ?a ?aLabel WHERE { ",
-      "body": " OPTIONAL {{ {{ OPTIONAL {{ <{entity}> <{predicate}> ?a . }} }} UNION {{ OPTIONAL {{ <{entity}> <{predicate}> ?a . ?a rdfs:label ?aLabel . FILTER(LANG(?aLabel) = \"en\") . }} }} }}",
+      "values": " VALUES ?p {{{values}}} . ",
+      "body": " <{entity}> ?p ?a . OPTIONAL {{ ?a rdfs:label ?aLabel . FILTER(LANG(?aLabel) = \"en\") . }} ",
       "closure": "}"
     },
     "parameters_number": 1
@@ -11,7 +12,8 @@
   "backward": {
     "query": {
       "head": "SELECT ?a ?aLabel WHERE { ",
-      "body": "OPTIONAL {{ {{ OPTIONAL {{ ?a <{predicate}> <{entity}> . }} }} UNION {{ OPTIONAL {{ ?a <{predicate}> <{entity}> . ?a rdfs:label ?aLabel . FILTER(LANG(?aLabel) = \"en\") . }} }} }}",
+      "values": " VALUES ?p {{{values}}} . ",
+      "body": " ?a ?p <{entity}> . OPTIONAL {{ ?a rdfs:label ?aLabel . FILTER(LANG(?aLabel) = \"en\") . }} ",
       "closure": "}"
     },
     "parameters_number": 1

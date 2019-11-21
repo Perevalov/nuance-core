@@ -11,14 +11,16 @@ def generate_answer(intents_dict, intent, sparql_result):
             template = "The distance between these cities is {0} km".format(dist)
             return template
         else:
+            labels_list = list()
             for binding in sparql_result["results"]["bindings"]:
-                if "aLabel" in binding and \
-                        len(binding["aLabel"]) > 0:
+                if "aLabel" in binding and len(binding["aLabel"]) > 0:
+                    labels_list.append(binding["aLabel"]["value"])
 
-                    result = binding["aLabel"]["value"]
-                    template = random.choice(intents_dict[intent][TEMPLATES]).format(result=result)
+            if len(labels_list) > 0:
+                result = random.choice(labels_list)
+                template = random.choice(intents_dict[intent][TEMPLATES]).format(result=result)
 
-                    return template
+                return template
 
             result = random.choice(sparql_result["results"]["bindings"])["a"]["value"]
             template = random.choice(intents_dict[intent][TEMPLATES]).format(result=result)
