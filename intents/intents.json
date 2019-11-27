@@ -10,7 +10,8 @@
     ],
     "query_type": "forward",
     "predicates": ["http://dbpedia.org/ontology/populationTotal"],
-    "answer_templates": ["The population in requested place is {result} people"]
+    "answer_templates": ["The population in requested place is {result} people",
+      "The population in {original} is {result} people"]
     } ,
   "distance": {
     "keywords": [
@@ -19,7 +20,8 @@
       "between"
     ],
     "query_type": "distance",
-    "answer_templates": ["The distance between these places is {result} km"]
+    "answer_templates": ["The distance between these places is {result} km",
+      "The distance between {original} is {result} km"]
     } ,
   "genre": {
     "keywords": [
@@ -39,7 +41,7 @@
     ],
     "query_type": "forward",
     "predicates": ["http://dbpedia.org/property/timezone", "http://dbpedia.org/ontology/timeZone"],
-    "answer_templates": ["The timezone is {result}"]
+    "answer_templates": ["The timezone is {result}", "The timezone in the {original} is {result}"]
     } ,
     "was_born": {
       "keywords": [
@@ -64,6 +66,6 @@
     "predicates": ["http://dbpedia.org/ontology/location",
       "http://dbpedia.org/property/mapCaption",
       "http://dbpedia.org/property/location"],
-    "answer_templates": ["That's located in {result}"]
+    "answer_templates": ["That's located in {result}", "The {original} is located in {result}"]
     }
 }

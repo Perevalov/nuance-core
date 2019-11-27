@@ -72,7 +72,7 @@ class DialogueManager:
             query = self.get_sparql(intent, list(annotation_dict.keys()))
             print("[SPARQL Query]: {0}".format(query))
             result = sparql.execute_query({"query": query})
-            text_response = TemplateGenerator.generate_answer(self.intents, intent, result)
+            text_response = TemplateGenerator.generate_answer(self.intents, intent, result, annotation_dict)
             return text_response
 
         return "Sorry, please ask again in different way"

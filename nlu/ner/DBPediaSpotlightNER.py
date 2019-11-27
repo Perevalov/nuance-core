@@ -11,6 +11,7 @@ def annotate_text(params):
     if 'Resources' in response:
         for resource in response['Resources']:
             if len(resource['@types']) > 0 and "Disease" not in resource["@types"]:
-                entities_dict[resource["@URI"]] = resource['@types']
+                entities_dict[resource["@URI"]] = {'@types': resource['@types'],
+                                                   '@surfaceForm': str(resource['@surfaceForm']).upper()}
 
     return entities_dict
