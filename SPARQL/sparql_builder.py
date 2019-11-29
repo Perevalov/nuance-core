@@ -36,7 +36,9 @@ class SPARQLBuilder:
             body = self.sparql_templates[query_type][QUERY][QUERY_BODY].format(point_1=entities[0], point_2=entities[1])
 
         elif query_type == "boolean":
-            body = self.sparql_templates[query_type][QUERY][QUERY_BODY].format(entity_1=entities[0], entity_2=entities[1])
+            body = self.sparql_templates[query_type][QUERY][QUERY_BODY].format(entity_1=entities[0],
+                                                                               entity_2=entities[1],
+                                                                               relation=relations[0])
 
         else:
             raise QueryTypeError('The passed argument "'+query_type+'" is not a supported query_class')

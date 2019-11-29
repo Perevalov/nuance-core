@@ -52,7 +52,8 @@
         "where"
       ],
       "query_type": "boolean",
-      "answer_templates": [""]
+      "answer_templates": [""],
+      "predicates": ["http://dbpedia.org/ontology/birthPlace"]
     },
     "located_in": {
     "keywords": [

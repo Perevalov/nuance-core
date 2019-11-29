@@ -29,7 +29,7 @@
   "boolean": {
     "query": {
       "head": "PREFIX dbr: <http://dbpedia.org/resource/> ASK where { ",
-      "body": " <{entity_1}> dbo:birthPlace <{entity_2}> . ",
+      "body": " <{entity_1}> <{relation}> <{entity_2}> . ",
       "closure": " }"
     },
     "parameters_number": 2
