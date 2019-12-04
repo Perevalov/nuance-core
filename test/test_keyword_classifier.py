@@ -19,7 +19,11 @@ class TestKeywordClassifier:
         unclear_sentence = "This sentence here is neither."
         both_right_and_wrong_sentence = "That sentence is generally incorrect, though for the most part quite fine."
 
-        assert classifier.get_class(right_sentence) == "right"
-        assert classifier.get_class(wrong_sentence) == "wrong"
-        assert classifier.get_class(unclear_sentence) == FALLBACK_CLASS
+        assert classifier.get_class(right_sentence) == "right", \
+            "The sentence containing \"correct\" was not classified as \"right\""
+        assert classifier.get_class(wrong_sentence) == "wrong", \
+            "The sentence containing \"false\" was not classified as \"wrong\""
+
+        assert classifier.get_class(unclear_sentence) == FALLBACK_CLASS, \
+            "The sentence containing no known keywords whatsoever was not classified FALLBACK "
         assert both_right_and_wrong_sentence == "right" or both_right_and_wrong_sentence == "wrong"
