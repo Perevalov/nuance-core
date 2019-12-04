@@ -14,10 +14,10 @@ class TestKeywordClassifier:
         }
         classifier = KeywordClassifier(classes, 0)
 
-        right_sentence = "This sentence is correct."
-        wrong_sentence = "But this one is false."
-        unclear_sentence = "This sentence here is neither."
-        both_right_and_wrong_sentence = "That sentence is generally incorrect, though for the most part quite fine."
+        right_sentence = "This sentence is correct"
+        wrong_sentence = "But this one is false"
+        unclear_sentence = "This sentence here is neither"
+        both_right_and_wrong_sentence = "That sentence is generally incorrect, though for the most part quite fine"
 
         assert classifier.get_class(right_sentence) == "right", \
             "The sentence containing \"correct\" was not classified as \"right\""
@@ -25,5 +25,6 @@ class TestKeywordClassifier:
             "The sentence containing \"false\" was not classified as \"wrong\""
 
         assert classifier.get_class(unclear_sentence) == FALLBACK_CLASS, \
-            "The sentence containing no known keywords whatsoever was not classified FALLBACK "
-        assert both_right_and_wrong_sentence == "right" or both_right_and_wrong_sentence == "wrong"
+            "The sentence containing no known keywords whatsoever was not classified as FALLBACK "
+        assert classifier.get_class(both_right_and_wrong_sentence) == "right" \
+               or classifier.get_class(both_right_and_wrong_sentence) == "wrong"
