@@ -28,3 +28,26 @@ class TestKeywordClassifier:
             "The sentence containing no known keywords whatsoever was not classified as FALLBACK "
         assert classifier.get_class(both_right_and_wrong_sentence) == "right" \
                or classifier.get_class(both_right_and_wrong_sentence) == "wrong"
+
+    def test_multiple_words_long_keywords(self):
+        classes = {
+            "greetings": {
+                "keywords": ["greetings", "well met", "hello there", "welcome"]
+            },
+            "farewell": {
+                "keywords": ["farewell", "see you later", "c u later", "see ya"]
+            }
+        }
+        classifier = KeywordClassifier(classes, 0)
+
+        greetings = "greetings everyone!"
+        hello_there = "why hello there didn't expect to meet you out of all people"
+        see_ya = "i gotta go home now see ya"
+        c_u_later = "was nice talking to you c u later"
+        fallback = "See you tomorrow"
+
+        assert classifier.get_class(greetings) == "greetings"
+        assert classifier.get_class(hello_there) == "greetings"
+        assert classifier.get_class(see_ya) == "farewell"
+        assert classifier.get_class(c_u_later) == "farewell"
+        assert classifier.get_class(fallback) == "fallback"

@@ -22,9 +22,10 @@ class KeywordClassifier:
             keywords = self.intents[intent][KEYWORDS]
             score = 0
             for kw in keywords:
-                for word in user_text.split():
-                    if word == kw:
-                        score += 1
+                score += user_text.count(kw)
+                # for word in user_text.split():
+                  #  if word == kw:
+                   #     score += 1
             scores_dict[intent] = score
 
         intent = max(scores_dict.items(), key=operator.itemgetter(1))[0]
