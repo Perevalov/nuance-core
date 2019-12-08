@@ -36,6 +36,7 @@ def index():
 def get_answer():
     print("[/get_answer] Started")
     question_text = request.args.get("user_text")
+    # TODO error message for when user_text is not a proper string
     print("Original question text: {0}".format(question_text))
 
     answer_text = dialogue_manager.get_answer(question_text)
