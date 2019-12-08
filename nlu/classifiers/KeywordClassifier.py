@@ -2,8 +2,9 @@ import config
 import operator
 import os
 from resources.constants import KEYWORDS, FALLBACK_CLASS
+from nlu.classifiers.Classifier import Classifier
 
-class KeywordClassifier:
+class KeywordClassifier(Classifier):
     def __init__(self, intents, threshold=0.01):
         """
 
@@ -13,7 +14,7 @@ class KeywordClassifier:
         self.THRESHOLD = threshold
         self.intents = intents
 
-    def get_class(self, user_text):
+    def predict(self, user_text):
         #TODO add weights to keywords
 
         scores_dict = dict()

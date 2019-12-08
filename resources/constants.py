@@ -21,4 +21,7 @@ PREDICATES = "predicates"
 KEYWORDS = "keywords"
 TEMPLATES = "answer_templates"
 
+BOOL_TEMPLATE = "boolean"
+DISTANCE_TEMPLATE = "distance"
+FWD_BWD_TEMPLATE = "forward backward"
 
