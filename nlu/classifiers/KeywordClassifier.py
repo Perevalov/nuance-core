@@ -3,6 +3,7 @@ import operator
 import os
 from resources.constants import KEYWORDS, FALLBACK_CLASS
 
+
 class KeywordClassifier:
     def __init__(self, intents, threshold=0.01):
         """
@@ -14,7 +15,7 @@ class KeywordClassifier:
         self.intents = intents
 
     def get_class(self, user_text):
-        #TODO add weights to keywords
+        # TODO add weights to keywords
 
         scores_dict = dict()
 
