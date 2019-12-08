@@ -198,7 +198,8 @@
   "literary_genre": {
     "keywords": [
       "genre",
-      "book"
+      "book",
+      "novel"
       ],
       "query_type": "forward",
       "predicates": ["http://dbpedia.org/ontology/literaryGenre"],
@@ -241,7 +242,8 @@
     "keywords": [
       "hometown",
       "born in the city",
-      "born in"
+      "born in",
+      "grow up"
       ],
       "query_type": "backward",
       "predicates": ["http://dbpedia.org/ontology/hometown"],
@@ -255,7 +257,8 @@
       "author",
       "creator of",
       "writer",
-      "writer of"
+      "writer of",
+      "write"
       ],
       "query_type": "backward",
       "predicates": ["http://dbpedia.org/ontology/author"],
