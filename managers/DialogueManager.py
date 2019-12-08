@@ -2,12 +2,13 @@ from nlu.ner import DBPediaSpotlightNER as ner
 from dblayer import SPARQLWorker as sparql
 from nlg import TemplateGenerator
 from SPARQL.sparql_builder import SPARQLBuilder, generate_label_query
-from resources.constants import PARAMETER_NUM, QUERY_TYPE, QUERY, PREDICATES, FALLBACK_CLASS
-from resources.utils import preprocess_text
+from resources.constants import *
+from resources.utils import preprocess_text, map_template_and_relation_to_intent
 
 
 class DialogueManager:
-    def __init__(self, classifier, sparql_templates, intents):
+    def __init__(self, keyword_classifier, template_classifier, fwd_bwd_classifier,
+                 relation_classifier, sparql_templates, intents):
         """
 
         :param classifier:
@@ -15,7 +16,11 @@ class DialogueManager:
         :param intents:
         """
 
-        self.classifier = classifier
+        self.keyword_classifier = keyword_classifier
+        self.template_classifier = template_classifier
+        self.fwd_bwd_classifier = fwd_bwd_classifier
+        self.relation_classifier = relation_classifier
+
         self.intents = intents
         self.sparql_templates = sparql_templates
         self.builder = SPARQLBuilder(self.sparql_templates)
@@ -60,7 +65,21 @@ class DialogueManager:
         :return:
         """
         preprocessed_text = preprocess_text(question_text, remove_stopwords=False)
-        intent = self.classifier.get_class(preprocessed_text)
+
+        template_prediction, is_confident = self.template_classifier.predict(preprocessed_text)
+
+        if template_prediction == 'FWD_BWD':
+            template_prediction, is_confident = self.fwd_bwd_classifier.predict(preprocessed_text)
+
+        if template_prediction != 'distance':
+            relation_prediction, is_confident = self.relation_classifier.predict(preprocessed_text)
+
+            intent = map_template_and_relation_to_intent(template_prediction, relation_prediction, self.intents)
+
+            if not is_confident:
+                intent = self.keyword_classifier.get_class(preprocessed_text)
+        else:
+            intent = 'distance'
 
         if intent == FALLBACK_CLASS:
             return "Sorry, not enough information please ask again in different way"

@@ -14,7 +14,7 @@ def generate_answer(intents_dict, intent, sparql_result, annotation_dict):
     :param annotation_dict:
     :return:
     """
-    if "results" in sparql_result.keys() and len(list(sparql_result["results"]["bindings"][0].keys())) > 0:
+    if "results" in sparql_result.keys() and len(list(sparql_result["results"]["bindings"])) > 0:
         if intent == "distance":
             dist = sparql_result["results"]["bindings"][0]["distanceBetweenCities"]["value"]
             template = prepare_template(intents_dict, intent, dist, annotation_dict)

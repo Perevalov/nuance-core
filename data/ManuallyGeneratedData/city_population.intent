@@ -1,0 +1,29 @@
+How many people live in X?	city_population
+What is the population of X?	city_population
+Tell me about the population in X	city_population
+Population of X	city_population
+Number of people in X	city_population
+How many people in X	city_population
+do you know how many people live in X?	city_population
+Do you know how many people in X?	city_population
+do you know number of people on X?	city_population
+Tell me about number of people in X	city_population
+Tell me number of people in X	city_population
+Tell me number of population in X	city_population
+How many people currently live in X?	city_population
+Current polulation of X?	city_population
+Number of inhabitants of X	city_population
+"Can you tell me about the polulation of X?
+"	city_population
+Can you tell me about number of people in X	city_population
+Can you tell me number of people in X	city_population
+Can you tell me number of population in X	city_population
+Can you tell me number of inhabitants in X	city_population
+Can you tell me number of citizens in X	city_population
+Do you know how many inhabitants live in X?	city_population
+Do you know how many citizens in X?	city_population
+Do you know number of inhabitants on X?	city_population
+Tell me current polulation of X	city_population
+Can you tell me current polulation of X?	city_population
+Do you know current polulation of X?	city_population
+Estimated population of X	city_population
