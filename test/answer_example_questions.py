@@ -15,7 +15,7 @@ def answer_example_questions():
     with app.test_client() as client:
         for question in example_questions:
             data = {"user_text": question}
-            print(client.get("/get_answer", data=data))
+            print(client.get("/get_answer?user_text={0}".format(question)))
 
 
 if __name__ == "__main__":
