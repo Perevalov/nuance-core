@@ -71,12 +71,15 @@ class DialogueManager:
         if template_prediction == 'FWD_BWD':
             template_prediction, is_confident = self.fwd_bwd_classifier.predict(preprocessed_text)
 
-        relation_prediction, is_confident = self.relation_classifier.predict(preprocessed_text)
+        if template_prediction != 'distance':
+            relation_prediction, is_confident = self.relation_classifier.predict(preprocessed_text)
 
-        intent = map_template_and_relation_to_intent(template_prediction, relation_prediction, self.intents)
+            intent = map_template_and_relation_to_intent(template_prediction, relation_prediction, self.intents)
 
-        if not is_confident:
-            intent = self.keyword_classifier.get_class(preprocessed_text)
+            if not is_confident:
+                intent = self.keyword_classifier.get_class(preprocessed_text)
+        else:
+            intent = 'distance'
 
         if intent == FALLBACK_CLASS:
             return "Sorry, not enough information please ask again in different way"
