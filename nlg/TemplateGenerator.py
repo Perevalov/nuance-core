@@ -4,6 +4,16 @@ from resources.constants import TEMPLATES
 
 
 def generate_answer(intents_dict, intent, sparql_result, annotation_dict):
+    """
+
+    :param intents_dict: dictionary filled with intent classes with their corresponding:
+                            - answer_templates
+                            -
+    :param intent:
+    :param sparql_result:
+    :param annotation_dict:
+    :return:
+    """
     if "results" in sparql_result.keys() and len(list(sparql_result["results"]["bindings"][0].keys())) > 0:
         if intent == "distance":
             dist = sparql_result["results"]["bindings"][0]["distanceBetweenCities"]["value"]
@@ -48,7 +58,7 @@ def prepare_template(intents_dict, intent, result, annotation_dict):
     if 'original' not in arguments:
         template = template.format(result=result)
     else:
-        #if intent is a distance - concat two places into one string
+        # if intent is a distance - insert two places into one string
         if intent == "distance":
             original = annotation_dict[list(annotation_dict.keys())[0]]['@surfaceForm'] + " and " + \
                        annotation_dict[list(annotation_dict.keys())[1]]['@surfaceForm']
