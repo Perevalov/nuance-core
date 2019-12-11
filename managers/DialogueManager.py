@@ -77,7 +77,7 @@ class DialogueManager:
             intent = map_template_and_relation_to_intent(template_prediction, relation_prediction, self.intents)
 
             if not is_confident:
-                intent = self.keyword_classifier.get_class(preprocessed_text)
+                intent = self.keyword_classifier.predict(preprocessed_text)
         else:
             intent = 'distance'
 

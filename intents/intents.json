@@ -33,6 +33,20 @@
     "{result} kilometers."
     ]
     },
+  "forward_genre": {
+    "keywords": [
+      "music",
+      "genre",
+      "album",
+      "song"
+    ],
+    "query_type": "forward",
+    "predicates": ["http://dbpedia.org/ontology/genre"],
+    "answer_templates": [
+    "{result}.",
+    "{original} plays {result}."
+    ]
+    },
   "genre": {
     "keywords": [
       "music",
@@ -64,6 +78,36 @@
     "{result}"
     ]
     },
+  "backward_was_born": {
+    "keywords": [
+      "city",
+      "country",
+      "born",
+      "birth",
+      "where"
+    ],
+    "query_type": "backward",
+    "answer_templates": [
+    "This person is {result}.",
+    "{result} birth place is {original}"
+    ],
+    "predicates": ["http://dbpedia.org/ontology/birthPlace"]
+  },
+  "forward_was_born": {
+    "keywords": [
+      "city",
+      "country",
+      "born",
+      "birth",
+      "where"
+    ],
+    "query_type": "forward",
+    "answer_templates": [
+    "{result}.",
+    "{result} birth place is {original}"
+    ],
+    "predicates": ["http://dbpedia.org/ontology/birthPlace"]
+  },
   "was_born": {
     "keywords": [
       "city",
@@ -79,6 +123,40 @@
     ],
     "predicates": ["http://dbpedia.org/ontology/birthPlace"]
   },
+  "backward_located_in": {
+  "keywords": [
+    "where",
+    "located",
+    "location",
+    "happen",
+    "happened"
+  ],
+  "query_type": "backward",
+  "predicates": ["http://dbpedia.org/ontology/location",
+    "http://dbpedia.org/property/mapCaption",
+    "http://dbpedia.org/property/location"],
+  "answer_templates": [
+    "Check {result}.",
+    "You can see {result} in {original}"
+    ]
+  },
+  "backward_located_in": {
+  "keywords": [
+    "where",
+    "located",
+    "location",
+    "happen",
+    "happened"
+  ],
+  "query_type": "backward",
+  "predicates": ["http://dbpedia.org/ontology/location",
+    "http://dbpedia.org/property/mapCaption",
+    "http://dbpedia.org/property/location",
+    "http://dbpedia.org/ontology/isPartOf"],
+  "answer_templates": [
+    "{result}."
+    ]
+  },
   "located_in": {
   "keywords": [
     "where",
@@ -90,26 +168,13 @@
   "query_type": "forward",
   "predicates": ["http://dbpedia.org/ontology/location",
     "http://dbpedia.org/property/mapCaption",
-    "http://dbpedia.org/property/location"],
+    "http://dbpedia.org/property/location",
+    "http://dbpedia.org/ontology/city",
+    "http://dbpedia.org/ontology/isPartOf"],
   "answer_templates": [
     "That's located in {result}.",
     "The {original} is located in {result}.",
     "That's going to be in {result}."
-    ]
-  },
-  "is_part_of": {
-    "keywords": [
-      "is part of",
-      "consists",
-      "consists of",
-      "part of",
-      "part"
-    ],
-    "query_type": "forward",
-    "predicates": ["http://dbpedia.org/ontology/isPartOf"],
-    "answer_templates": [
-    "{original} is a part of {result}.",
-    "Yes, {result} is the part of the {original}."
     ]
   },
   "position": {
@@ -118,7 +183,8 @@
       "position of"
     ],
     "query_type": "forward",
-    "predicates": ["http://dbpedia.org/ontology/position"],
+    "predicates": ["http://dbpedia.org/ontology/position",
+      "http://dbpedia.org/property/careerPosition"],
     "answer_templates": [
     "The position of {original} is {result}."
     ]
@@ -138,6 +204,18 @@
     "This person died in {result}."
     ]
     },
+  "backward_writer": {
+    "keywords": [
+      "writer",
+      "author",
+      "author of"
+    ],
+    "query_type": "backward",
+    "predicates": ["http://dbpedia.org/ontology/writer"],
+    "answer_templates": [
+    "{original} wrote the {result}."
+    ]
+    },
   "writer": {
     "keywords": [
       "writer",
@@ -147,8 +225,19 @@
     "query_type": "forward",
     "predicates": ["http://dbpedia.org/ontology/writer"],
     "answer_templates": [
-    "{original} is the writer of {result}.",
-    "{original} wrote the {result}."
+    "{original} is the writer of {result}."
+    ]
+    },
+  "backward_artist": {
+    "keywords": [
+      "artist",
+      "performer",
+      "lead artist"
+    ],
+    "query_type": "backward",
+    "predicates": ["http://dbpedia.org/ontology/artist"],
+    "answer_templates": [
+    "{original} created the {result}."
     ]
     },
   "artist": {
@@ -160,8 +249,7 @@
     "query_type": "forward",
     "predicates": ["http://dbpedia.org/ontology/artist"],
     "answer_templates": [
-    "{original} is the lead artist in {result}.",
-    "Yes, this musician created the {result}."
+    "{original} is the lead artist in {result}."
     ]
     },
   "country": {
@@ -174,8 +262,21 @@
     "query_type": "forward",
     "predicates": ["http://dbpedia.org/ontology/country"],
     "answer_templates": [
-    "{result} is the country.",
-    "You are asking about a country."
+    "In {result}"
+    ]
+    },
+  "backward_country": {
+    "keywords": [
+      "located",
+      "country",
+      "situated in",
+      "situated"
+    ],
+    "query_type": "backward",
+    "predicates": ["http://dbpedia.org/ontology/country"],
+    "answer_templates": [
+    "{result} is in this country.",
+    "{result} located in {original}"
     ]
     },
   "record_label": {
@@ -207,6 +308,30 @@
       "The genre of this book is {result}."
       ]
       },
+  "backward_literary_genre": {
+    "keywords": [
+      "genre",
+      "book",
+      "novel"
+      ],
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/literaryGenre"],
+      "answer_templates": [
+      "Try to read {result}."
+      ]
+      },
+    "backward_type": {
+    "keywords": [
+      "type",
+      "kind",
+      "structure"
+      ],
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/type"],
+      "answer_templates": [
+      "The {result}."
+      ]
+      },
   "type": {
     "keywords": [
       "type",
@@ -217,6 +342,26 @@
       "predicates": ["http://dbpedia.org/ontology/type"],
       "answer_templates": [
       "The type is {result}."
+      ]
+      },
+  "backward_director": {
+    "keywords": [
+      "director",
+      "direct",
+      "film",
+      "directed",
+      "movie",
+      "TV-show",
+      "TV",
+      "films",
+      "movies"
+      ],
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/director",
+        "http://dbpedia.org/property/creator"],
+      "answer_templates": [
+      "The {original} is director of {result}.",
+      "The {result} is the example."
       ]
       },
   "director": {
@@ -232,7 +377,8 @@
       "movies"
       ],
       "query_type": "forward",
-      "predicates": ["http://dbpedia.org/ontology/director"],
+      "predicates": ["http://dbpedia.org/ontology/director",
+        "http://dbpedia.org/property/creator"],
       "answer_templates": [
       "The director is {result}.",
       "The director's name is {result}."
@@ -245,7 +391,7 @@
       "born in",
       "grow up"
       ],
-      "query_type": "backward",
+      "query_type": "forward",
       "predicates": ["http://dbpedia.org/ontology/hometown"],
       "answer_templates": [
       "The hometown of this person is {result}.",
@@ -267,6 +413,21 @@
       "The creator of this work is {result}."
       ]
       },
+    "forward_author": {
+    "keywords": [
+      "author",
+      "creator of",
+      "writer",
+      "writer of",
+      "write"
+      ],
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/author"],
+      "answer_templates": [
+      "The writer of {original} is {result}.",
+      "The creator of this work is {result}."
+      ]
+      },
   "language": {
     "keywords": [
     "language",
@@ -278,7 +439,7 @@
     "written language",
     "language of this work"
     ],
-    "query_type": "backward",
+    "query_type": "forward",
     "predicates": ["http://dbpedia.org/ontology/language"],
     "answer_templates": [
     "The language of {original} is {result}.",
@@ -298,6 +459,20 @@
     "answer_templates": [
     "It was {result} who produced this.",
     "The name of this producer is {result}.",
+    "The {original} has been produced by {result}."
+    ]
+    },
+    "forward_producer": {
+    "keywords": [
+    "producer of",
+    "produced the",
+    "produced",
+    "been producing"
+    ],
+    "query_type": "forward",
+    "predicates": ["http://dbpedia.org/ontology/producer"],
+    "answer_templates": [
+    "{result} ",
     "The {original} has been produced by {result}."
     ]
     }
