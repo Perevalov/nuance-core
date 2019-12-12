@@ -2,4 +2,5 @@ Flask==1.0.2
 requests==2.20.1
 Flask_Cors==3.0.7
 nltk==3.2.5
+sklearn==0.19.1
 gunicorn==19.9.0
