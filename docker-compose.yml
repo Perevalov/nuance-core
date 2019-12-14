@@ -1,0 +1,21 @@
+version: '2'
+services:
+  dbpedia_spotlight:
+    restart: unless-stopped
+    image: nuance-core:latest
+    container_name: nuance-core-dbpedia_spotlight
+    environment:
+      - SERVICE_TYPE=dbpedia_spotlight
+    ports:
+      - '5000:5000'
+    network_mode: host
+
+  template_classifier:
+    restart: unless-stopped
+    image: nuance-core:latest
+    container_name: nuance-core-template_classifier
+    environment:
+      - SERVICE_TYPE=template_classifier
+    ports:
+      - '5001:5001'
+    network_mode: host
