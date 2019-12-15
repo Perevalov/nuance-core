@@ -26,6 +26,8 @@ def validate_question(intent: str, annotation_dict):
     :param annotation_dict:
     :return:
     """
+    if len(list(annotation_dict.keys())) < 1:
+        return False
 
     query_type = intents[intent][QUERY_TYPE]
 

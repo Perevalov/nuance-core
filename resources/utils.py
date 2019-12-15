@@ -13,11 +13,12 @@ import config
 tokenizer = RegexpTokenizer(r'\w+')
 stopwords = stopwords.words('english')
 
-def preprocess_text(text, remove_stopwords=True):
+def preprocess_text(text, remove_stopwords=True, lowercase=True):
     # clean_ascii
     tmp = "".join(i for i in text if ord(i) < 128)
     # lowercase
-    tmp = tmp.lower()
+    if lowercase:
+        tmp = tmp.lower()
     # normal form
     tokens = tokenizer.tokenize(tmp)
     # stopwords

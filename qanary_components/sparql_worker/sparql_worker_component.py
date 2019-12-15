@@ -27,6 +27,25 @@ def qanaryService():
     print("endpoint: %s, ingraph: %s, outGraph: %s" % (triplestore_endpoint, triplestore_ingraph, triplestore_outgraph))
 
     SPARQLquery = """
+                                PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+
+                                SELECT ?p ?o
+                                FROM <{graph_guid}>
+                                WHERE 
+                                {{
+                                  VALUES ?p {{oa:isQuestionValidated}}
+                                  ?s ?p ?o
+                                }}
+                            """.format(graph_guid=triplestore_ingraph)
+
+    validation_result = get_validation_result(triplestore_endpoint=triplestore_endpoint,
+                                              graph=triplestore_ingraph,
+                                              SPARQLquery=SPARQLquery)
+
+    if not validation_result:
+        return jsonify(request.get_json())
+
+    SPARQLquery = """
                     PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
 
                     SELECT ?p ?o

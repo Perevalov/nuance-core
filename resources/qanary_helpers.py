@@ -136,6 +136,22 @@ def get_text_response(triplestore_endpoint, graph, SPARQLquery):
 
     return text_response
 
+
+def get_validation_result(triplestore_endpoint, graph, SPARQLquery):
+    validation_result = None
+
+    result = queryTriplestore(triplestore_endpoint + "/query", graph, SPARQLquery)
+    for binding in result['results']['bindings']:
+        if 'isQuestionValidated' in binding['p']['value']:
+            validation_result = binding['o']['value'].replace("http://www.w3.org/ns/openannotation/core/boolean:", "")
+            if validation_result == 'True':
+                validation_result = True
+            elif validation_result == 'False':
+                validation_result = False
+
+    return validation_result
+
+
 def get_sparql_result(triplestore_endpoint, graph, SPARQLquery):
     import ast
     sparql_result = None

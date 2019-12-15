@@ -57,32 +57,52 @@ def qanaryService():
                     FROM <{graph_guid}>
                     WHERE 
                     {{
-                      VALUES ?p {{oa:spotlightAnnotation oa:intent}}
+                      VALUES ?p {{oa:isQuestionValidated}}
                       ?s ?p ?o
                     }}
                 """.format(graph_guid=triplestore_ingraph)
 
-    annotation, intent = get_annotation_and_intent(triplestore_endpoint=triplestore_endpoint,
-                                                   graph=triplestore_ingraph,
-                                                   SPARQLquery=SPARQLquery)
+    validation_result = get_validation_result(triplestore_endpoint=triplestore_endpoint,
+                                              graph=triplestore_ingraph,
+                                              SPARQLquery=SPARQLquery)
 
-    SPARQLquery = """
-                    PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+    if validation_result:
+        SPARQLquery = """
+                        PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+    
+                        SELECT ?p ?o
+                        FROM <{graph_guid}>
+                        WHERE 
+                        {{
+                          VALUES ?p {{oa:spotlightAnnotation oa:intent}}
+                          ?s ?p ?o
+                        }}
+                    """.format(graph_guid=triplestore_ingraph)
 
-                    SELECT ?p ?o
-                    FROM <{graph_guid}>
-                    WHERE 
-                    {{
-                      VALUES ?p {{oa:sparqlResult}}
-                      ?s ?p ?o
-                    }}
-                """.format(graph_guid=triplestore_ingraph)
+        annotation, intent = get_annotation_and_intent(triplestore_endpoint=triplestore_endpoint,
+                                                       graph=triplestore_ingraph,
+                                                       SPARQLquery=SPARQLquery)
 
-    sparql_result = get_sparql_result(triplestore_endpoint=triplestore_endpoint,
-                                                   graph=triplestore_ingraph,
-                                                   SPARQLquery=SPARQLquery)
+        SPARQLquery = """
+                        PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+    
+                        SELECT ?p ?o
+                        FROM <{graph_guid}>
+                        WHERE 
+                        {{
+                          VALUES ?p {{oa:sparqlResult}}
+                          ?s ?p ?o
+                        }}
+                    """.format(graph_guid=triplestore_ingraph)
 
-    text_response = TemplateGenerator.generate_answer(intents, intent, sparql_result, annotation)
+        sparql_result = get_sparql_result(triplestore_endpoint=triplestore_endpoint,
+                                                       graph=triplestore_ingraph,
+                                                       SPARQLquery=SPARQLquery)
+
+        text_response = TemplateGenerator.generate_answer(intents, intent, sparql_result, annotation)
+
+    else:
+        text_response = "Sorry, please ask again in different way"
 
     guid = str(uuid.uuid4())
 

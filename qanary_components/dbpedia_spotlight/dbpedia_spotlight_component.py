@@ -22,7 +22,7 @@ def qanaryService():
 
     text = get_text_question_in_graph(triplestore_endpoint=triplestore_endpoint, graph=triplestore_ingraph)[0]['text']
     print("Question Text: {0}".format(text))
-    preprocessed_text = preprocess_text(text)
+    preprocessed_text = preprocess_text(text, lowercase=False)
     print("Preprocessed text: {0}".format(preprocessed_text))
 
     annotation_dict = ner.annotate_text({"text": preprocessed_text, "confidence": 0.3})
