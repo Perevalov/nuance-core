@@ -19,3 +19,53 @@ services:
     ports:
       - '5001:5001'
     network_mode: host
+
+  question_validator:
+    restart: unless-stopped
+    image: nuance-core:latest
+    container_name: nuance-core-question_validator
+    environment:
+      - SERVICE_TYPE=question_validator
+    ports:
+      - '5003:5003'
+    network_mode: host
+
+  relation_classifier:
+    restart: unless-stopped
+    image: nuance-core:latest
+    container_name: nuance-core-relation_classifier
+    environment:
+      - SERVICE_TYPE=relation_classifier
+    ports:
+      - '5004:5004'
+    network_mode: host
+
+  sparql_builder:
+    restart: unless-stopped
+    image: nuance-core:latest
+    container_name: nuance-core-sparql_builder
+    environment:
+      - SERVICE_TYPE=sparql_builder
+    ports:
+      - '5005:5005'
+    network_mode: host
+
+  sparql_worker:
+    restart: unless-stopped
+    image: nuance-core:latest
+    container_name: nuance-core-sparql_worker
+    environment:
+      - SERVICE_TYPE=sparql_worker
+    ports:
+      - '5006:5006'
+    network_mode: host
+
+  template_generator:
+    restart: unless-stopped
+    image: nuance-core:latest
+    container_name: nuance-core-template_generator
+    environment:
+      - SERVICE_TYPE=template_generator
+    ports:
+      - '5007:5007'
+    network_mode: host
