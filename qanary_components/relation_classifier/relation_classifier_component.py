@@ -66,7 +66,7 @@ def qanaryService():
             {{ 
                 GRAPH <{graph_guid}>
                   {{ 
-                    <urn:cqa:annotation:{guid}> oa:relation oa:relation:{relation} . 
+                    <urn:cqa:annotation:{guid}> oa:relation <{relation}> . 
                     <urn:cqa:annotation:{guid}> oa:intent oa:intent:{intent} 
                   }}
             }}

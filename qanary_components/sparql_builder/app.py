@@ -2,7 +2,7 @@ import logging
 import argparse
 from flask import Flask, render_template, jsonify, request
 from datetime import datetime
-from template_classifier_component import template_classifier_component
+from sparql_builder_component import sparql_builder_component
 
 import sys
 
@@ -25,7 +25,7 @@ healthendpoint = "/health"
 
 # initialize Flask app and add the externalized service information
 app = Flask(__name__)
-app.register_blueprint(template_classifier_component)
+app.register_blueprint(sparql_builder_component)
 
 # holds the configuration
 configuration = None

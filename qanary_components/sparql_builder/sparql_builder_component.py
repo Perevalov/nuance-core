@@ -61,10 +61,10 @@ def qanaryService():
                     {{ 
                         GRAPH <{graph_guid}>
                           {{ 
-                            <urn:cqa:annotation:{guid}> oa:sparqlQuery {sparql_query} .
+                            <urn:cqa:annotation:{guid}> oa:sparqlQuery \"{sparql_query}\" .
                           }}
                     }}
-                """.format(graph_guid=triplestore_ingraph, guid=guid, sparql_query=sparql_query)
+                """.format(graph_guid=triplestore_ingraph, guid=guid, sparql_query=sparql_query.replace("\"", "\\\""))
 
     insert_into_triplestore(triplestore_endpoint, triplestore_ingraph, SPARQLquery)
 

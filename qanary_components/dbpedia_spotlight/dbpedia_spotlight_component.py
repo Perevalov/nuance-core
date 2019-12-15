@@ -36,7 +36,7 @@ def qanaryService():
                 {{ 
                     GRAPH <{graph_guid}>
                       {{ 
-                        <urn:cqa:annotation:{guid}> oa:spotlightAnnotation {annotation} . 
+                        <urn:cqa:annotation:{guid}> oa:spotlightAnnotation \"{annotation}\" . 
                       }}
                 }}
             """.format(graph_guid=triplestore_ingraph, guid=guid, annotation=annotation_dict)

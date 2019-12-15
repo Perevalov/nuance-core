@@ -98,6 +98,7 @@ def constructIntoTriplestore(triplestore_endpoint, graph, SPARQLquery):
 
 
 def get_annotation_and_intent(triplestore_endpoint, graph, SPARQLquery):
+    import ast
 
     annotation = None
     intent = None
@@ -109,7 +110,42 @@ def get_annotation_and_intent(triplestore_endpoint, graph, SPARQLquery):
         elif 'intent' in binding['p']['value']:
             intent = binding['o']['value'].replace("http://www.w3.org/ns/openannotation/core/intent:", "")
 
-    return annotation, intent
+    return ast.literal_eval(annotation), intent
+
+
+def get_sparql(triplestore_endpoint, graph, SPARQLquery):
+
+    sparql = None
+
+    result = queryTriplestore(triplestore_endpoint + "/query", graph, SPARQLquery)
+    for binding in result['results']['bindings']:
+        if 'sparqlQuery' in binding['p']['value']:
+            sparql = binding['o']['value']
+
+    return sparql
+
+
+def get_text_response(triplestore_endpoint, graph, SPARQLquery):
+
+    text_response = None
+
+    result = queryTriplestore(triplestore_endpoint + "/query", graph, SPARQLquery)
+    for binding in result['results']['bindings']:
+        if 'textResponse' in binding['p']['value']:
+            text_response = binding['o']['value']
+
+    return text_response
+
+def get_sparql_result(triplestore_endpoint, graph, SPARQLquery):
+    import ast
+    sparql_result = None
+
+    result = queryTriplestore(triplestore_endpoint + "/query", graph, SPARQLquery)
+    for binding in result['results']['bindings']:
+        if 'sparqlResult' in binding['p']['value']:
+            sparql_result = binding['o']['value']
+
+    return ast.literal_eval(sparql_result)
 
 
 def get_template_prediction(triplestore_endpoint, graph, SPARQLquery):

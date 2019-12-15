@@ -16,7 +16,10 @@ question_validator_component = Blueprint('question_validator_component', __name_
 with open(os.path.join(config.INTENTS_PATH, "intents.json")) as json_file:
     intents = json.load(json_file)
 
-def validate_question(self, intent: str, annotation_dict):
+with open(os.path.join(config.INTENTS_PATH, "sparql_templates.json")) as json_file:
+    sparql_templates = json.load(json_file)
+
+def validate_question(intent: str, annotation_dict):
     """
     Checks if the number of parameters in query equals retrieved parameters
     :param q_class:
@@ -24,12 +27,12 @@ def validate_question(self, intent: str, annotation_dict):
     :return:
     """
 
-    query_type = self.intents[intent][QUERY_TYPE]
+    query_type = intents[intent][QUERY_TYPE]
 
     # TODO remove debug tmp variables
-    tmp = self.sparql_templates[query_type][PARAMETER_NUM]
+    tmp = sparql_templates[query_type][PARAMETER_NUM]
     tmp1 = len(list(annotation_dict.keys()))
-    if len(list(annotation_dict.keys())) == int(self.sparql_templates[query_type][PARAMETER_NUM]):
+    if len(list(annotation_dict.keys())) == int(sparql_templates[query_type][PARAMETER_NUM]):
         return True
     else:
         return False

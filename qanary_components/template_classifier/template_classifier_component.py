@@ -21,6 +21,13 @@ template_classifier = pickle.load(open(os.path.join(config.PROJECT_PATH, "models
 
 template_classifier = MLClassifier(template_classifier, template_vectorizer, template_encoder)
 
+#loading the model
+fwd_bwd_vectorizer = pickle.load(open(os.path.join(config.PROJECT_PATH, "models", "fwd_bwd_vectorizer.model"), 'rb'))
+fwd_bwd_encoder = pickle.load(open(os.path.join(config.PROJECT_PATH, "models", "fwd_bwd_encoder.model"), 'rb'))
+fwd_bwd_classifier = pickle.load(open(os.path.join(config.PROJECT_PATH, "models", "fwd_bwd_classifier.model"), 'rb'))
+
+fwd_bwd_classifier = MLClassifier(fwd_bwd_classifier, fwd_bwd_vectorizer, fwd_bwd_encoder)
+
 @template_classifier_component.route("/annotatequestion", methods=['POST'])
 def qanaryService():
     """the POST endpoint required for a Qanary service"""
@@ -34,6 +41,9 @@ def qanaryService():
     preprocessed_text = preprocess_text(text, remove_stopwords=False)
     print("Preprocessed text: {0}".format(preprocessed_text))
     template_prediction, is_confident = template_classifier.predict(preprocessed_text)
+
+    if template_prediction == 'FWD_BWD':
+        template_prediction, is_confident = fwd_bwd_classifier.predict(preprocessed_text)
 
     guid = str(uuid.uuid4())
 

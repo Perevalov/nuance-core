@@ -13,8 +13,7 @@ from flask_cors import CORS
 import config
 import os
 import json
-
-
+import requests
 
 
 app = Flask(__name__)
@@ -58,5 +57,36 @@ def get_answer():
     return json.dumps({"system_text": answer_text})
 
 
+@app.route("/get_answer_qanary", methods=['GET'])
+def get_answer_qanary():
+    question_text = request.args.get("user_text")
+
+    response = requests.post(url="http://localhost:8080/startquestionansweringwithtextquestion",
+                            params={
+                                "question": question_text,
+                                "componentlist[]": ["template_classifier",
+                                                    "relation_classifier",
+                                                    "dbpedia_spotlight_annotator",
+                                                    "question_validator",
+                                                    "sparql_builder",
+                                                    "dbpedia_sparql_worker",
+                                                    "template_generator"]
+                            }).json()
+
+    endpoint = response['endpoint']
+    in_graph = response['inGraph']
+
+    template_generator_endpoint = "http://127.0.0.1:6009/text_answer"
+
+    response = requests.get(url=template_generator_endpoint,
+                            params={
+                                'endpoint': endpoint,
+                                'inGraph': in_graph
+                            }).json()
+
+    answer_text = response['answer']
+
+    return json.dumps({"system_text": answer_text})
+
 if __name__ == "__main__":
-    app.run(debug=True, host='127.0.0.1', port=5001)
+    app.run(debug=True, host='127.0.0.1', port=5050)
