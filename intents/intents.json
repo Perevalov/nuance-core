@@ -360,7 +360,7 @@
       "predicates": ["http://dbpedia.org/ontology/director",
         "http://dbpedia.org/property/creator"],
       "answer_templates": [
-      "The {original} is director of {result}.",
+      "{original} is the director of {result}.",
       "The {result} is the example."
       ]
       },

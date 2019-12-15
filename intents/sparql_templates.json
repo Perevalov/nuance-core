@@ -5,7 +5,7 @@
       "head": " SELECT ?a ?aLabel WHERE { ",
       "values": " VALUES ?p {{{values}}} . ",
       "body": " <{entity}> ?p ?a . OPTIONAL {{ ?a rdfs:label ?aLabel . FILTER(LANG(?aLabel) = \"en\") . }} ",
-      "closure": "}"
+      "closure": "} ORDER BY RAND() LIMIT 1"
     },
     "parameters_number": 1
   },
@@ -14,7 +14,7 @@
       "head": "SELECT ?a ?aLabel WHERE { ",
       "values": " VALUES ?p {{{values}}} . ",
       "body": " ?a ?p <{entity}> . OPTIONAL {{ ?a rdfs:label ?aLabel . FILTER(LANG(?aLabel) = \"en\") . }} ",
-      "closure": "}"
+      "closure": "} ORDER BY RAND() LIMIT 1"
     },
     "parameters_number": 1
   },

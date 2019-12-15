@@ -56,10 +56,9 @@ def qanaryService():
                     <urn:cqa:annotation:{guid}> oa:sparqlResult \"{sparql_result}\" 
                   }}
             }}
-        """.format(graph_guid=triplestore_ingraph, guid=guid, sparql_result=result)
+        """.format(graph_guid=triplestore_ingraph, guid=guid, sparql_result=str(result).replace("\"", "\\\""))
 
     insert_into_triplestore(triplestore_endpoint, triplestore_ingraph, SPARQLquery)
-
 
     return jsonify(request.get_json())
 
