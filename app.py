@@ -76,7 +76,7 @@ def get_answer_qanary():
     endpoint = response['endpoint']
     in_graph = response['inGraph']
 
-    template_generator_endpoint = "http://127.0.0.1:6009/text_answer"
+    template_generator_endpoint = "http://127.0.0.1:5007/text_answer"
 
     response = requests.get(url=template_generator_endpoint,
                             params={

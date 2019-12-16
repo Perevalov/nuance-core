@@ -29,6 +29,10 @@ then
   then
     exec gunicorn -b :5007 --access-logfile - --error-logfile - --chdir /home/nuance-core/qanary_components/template_generator app:app
     exit
+  elif [ $SERVICE_TYPE == "backend" ]
+  then
+    exec gunicorn -b :5002 --access-logfile - --error-logfile - app:app
+    exit
   fi
 else
   echo -e "SERVICE_TYPE not set\n"
