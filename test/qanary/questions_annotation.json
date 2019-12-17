@@ -1,0 +1,52 @@
+[
+  {
+    "question": "What is Japan's main language?",
+    "template_classifier": {"template_type": "forward", "is_confident": "True"},
+    "relation_classifier": {"relation": "http://dbpedia.org/ontology/language", "intent": "language"},
+    "dbpedia_spotlight": {},
+    "question_validator": {"is_validated": "True"},
+    "sparql_builder": {},
+    "sparql_executor": {},
+    "template_generator": {}
+  },
+    {
+    "question": "What is the genre of the book \"False Memory\"?",
+    "template_classifier": {"template_type": "forward", "is_confident": "True"},
+    "relation_classifier": {"relation": "http://dbpedia.org/ontology/literaryGenre", "intent": "literary_genre"},
+    "dbpedia_spotlight": {},
+    "question_validator": {"is_validated": "True"},
+    "sparql_builder": {},
+    "sparql_executor": {},
+    "template_generator": {}
+  },
+    {
+    "question": "Is Hawaii an origin country of Barack Obama?",
+    "template_classifier": {"template_type": "boolean", "is_confident": "True"},
+    "relation_classifier": {"relation": "http://dbpedia.org/ontology/country", "intent": "boolean_country"},
+    "dbpedia_spotlight": {},
+    "question_validator": {"is_validated": "True"},
+    "sparql_builder": {},
+    "sparql_executor": {},
+    "template_generator": {}
+  },
+    {
+    "question": "Who wrote the film Goodfellas?",
+    "template_classifier": {"template_type": "forward", "is_confident":  "True"},
+    "relation_classifier": {"relation": "http://dbpedia.org/ontology/writer", "intent": "forward_writer"},
+    "dbpedia_spotlight": {},
+    "question_validator": {"is_validated": "True"},
+    "sparql_builder": {},
+    "sparql_executor": {},
+    "template_generator": {}
+  },
+    {
+    "question": "Name a person born in chicago.",
+    "template_classifier": {"template_type": "backward", "is_confident":  "True"},
+    "relation_classifier": {"relation": "http://dbpedia.org/ontology/birthPlace", "intent": "backward_was_born"},
+    "dbpedia_spotlight": {},
+    "question_validator": {"is_validated": "True"},
+    "sparql_builder": {},
+    "sparql_executor": {},
+    "template_generator": {}
+  }
+]
