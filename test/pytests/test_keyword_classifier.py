@@ -19,15 +19,15 @@ class TestKeywordClassifier:
         unclear_sentence = "This sentence here is neither"
         both_right_and_wrong_sentence = "That sentence is generally incorrect, though for the most part quite fine"
 
-        assert classifier.get_class(right_sentence) == "right", \
+        assert classifier.predict(right_sentence) == "right", \
             "The sentence containing \"correct\" was not classified as \"right\""
-        assert classifier.get_class(wrong_sentence) == "wrong", \
+        assert classifier.predict(wrong_sentence) == "wrong", \
             "The sentence containing \"false\" was not classified as \"wrong\""
 
-        assert classifier.get_class(unclear_sentence) == FALLBACK_CLASS, \
+        assert classifier.predict(unclear_sentence) == FALLBACK_CLASS, \
             "The sentence containing no known keywords whatsoever was not classified as FALLBACK "
-        assert classifier.get_class(both_right_and_wrong_sentence) == "right" \
-               or classifier.get_class(both_right_and_wrong_sentence) == "wrong"
+        assert classifier.predict(both_right_and_wrong_sentence) == "right" \
+               or classifier.predict(both_right_and_wrong_sentence) == "wrong"
 
     def test_multiple_words_long_keywords(self):
         classes = {
@@ -46,8 +46,8 @@ class TestKeywordClassifier:
         c_u_later = "was nice talking to you c u later"
         fallback = "See you tomorrow"
 
-        assert classifier.get_class(greetings) == "greetings"
-        assert classifier.get_class(hello_there) == "greetings"
-        assert classifier.get_class(see_ya) == "farewell"
-        assert classifier.get_class(c_u_later) == "farewell"
-        assert classifier.get_class(fallback) == "fallback"
+        assert classifier.predict(greetings) == "greetings"
+        assert classifier.predict(hello_there) == "greetings"
+        assert classifier.predict(see_ya) == "farewell"
+        assert classifier.predict(c_u_later) == "farewell"
+        assert classifier.predict(fallback) == "fallback"
