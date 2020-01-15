@@ -21,27 +21,31 @@ def qanaryService():
     triplestore_outgraph = request.json["values"]["urn:qanary#outGraph"]
 
     text = get_text_question_in_graph(triplestore_endpoint=triplestore_endpoint, graph=triplestore_ingraph)[0]['text']
+    # TODO: this is temporary solution
+    text = text.split('$')[0]
+
     print("Question Text: {0}".format(text))
     preprocessed_text = preprocess_text(text, lowercase=False)
     print("Preprocessed text: {0}".format(preprocessed_text))
 
     annotation_dict = ner.annotate_text({"text": preprocessed_text, "confidence": 0.3})
 
-    guid = str(uuid.uuid4())
+    if len(annotation_dict.keys()) > 0:
+        guid = str(uuid.uuid4())
 
-    SPARQLquery = """
-                PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+        SPARQLquery = """
+                    PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+    
+                    INSERT DATA 
+                    {{ 
+                        GRAPH <{graph_guid}>
+                          {{ 
+                            <urn:cqa:annotation:{guid}> oa:namedEntities \"{annotation}\" . 
+                          }}
+                    }}
+                """.format(graph_guid=triplestore_ingraph, guid=guid, annotation=annotation_dict)
 
-                INSERT DATA 
-                {{ 
-                    GRAPH <{graph_guid}>
-                      {{ 
-                        <urn:cqa:annotation:{guid}> oa:spotlightAnnotation \"{annotation}\" . 
-                      }}
-                }}
-            """.format(graph_guid=triplestore_ingraph, guid=guid, annotation=annotation_dict)
-
-    insert_into_triplestore(triplestore_endpoint, triplestore_ingraph, SPARQLquery)
+        insert_into_triplestore(triplestore_endpoint, triplestore_ingraph, SPARQLquery)
 
     print(triplestore_ingraph)
     print("endpoint: %s, ingraph: %s, outGraph: %s" % (triplestore_endpoint, triplestore_ingraph, triplestore_outgraph))

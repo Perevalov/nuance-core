@@ -4,6 +4,7 @@ import requests
 from urllib.parse import urlparse
 from pprint import pprint
 import re
+import uuid
 
 
 def get_text_question_in_graph(triplestore_endpoint, graph):
@@ -81,6 +82,21 @@ def selectFromTriplestore(triplestore_endpoint, graph, SPARQLquery):
     return queryTriplestore(triplestore_endpoint+"/query", graph, SPARQLquery)
 
 
+def get_dialogue_state(triplestore_endpoint, session_id):
+    SPARQLquery = """
+               PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+
+               SELECT *
+               WHERE 
+               {{ 
+                   <urn:cqa:dialogue:{session_id}> oa:hasQuestion ?question
+               }}
+           """.format(session_id=session_id)
+
+    result = queryTriplestore(triplestore_endpoint + "/query", None, SPARQLquery)
+    #TODO: do something with it
+    return -1
+
 def insert_into_triplestore(triplestore_endpoint, graph, SPARQLquery):
     """
         execute INSERT query on triplestore and returns the result object
@@ -97,15 +113,138 @@ def constructIntoTriplestore(triplestore_endpoint, graph, SPARQLquery):
     return insertIntoTriplestore(triplestore_endpoint, graph, SPARQLquery)
 
 
-def get_annotation_and_intent(triplestore_endpoint, graph, SPARQLquery):
+def get_most_recent_qa_pair(triplestore_endpoint, session_id):
+    SPARQLquery = """
+            PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+
+            SELECT ?graphGuid
+            WHERE 
+            {{
+                <urn:cqa:dialogue:{session_id}> oa:hasQuestion ?graphGuid ;
+                    oa:hasTimeAnswered ?time .
+            }}
+            ORDER BY DESC(?time)
+            LIMIT 1
+        """.format(session_id=session_id)
+
+    graph_guid = None
+    result = queryTriplestore(triplestore_endpoint + "/query", None, SPARQLquery)
+    for binding in result['results']['bindings']:
+        graph_guid = binding['graphGuid']['value']
+
+    return graph_guid
+
+
+def get_coreference_uri(triplestore_endpoint, graph):
+    SPARQLquery = """
+                           PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+
+                           SELECT ?p ?o
+                           FROM <{graph_guid}>
+                           WHERE 
+                           {{
+                             VALUES ?p {{oa:coreferenceURI}}
+                             ?s ?p ?o
+                           }}
+                       """.format(graph_guid=graph)
+
+    uri = None
+
+    result = queryTriplestore(triplestore_endpoint + "/query", graph, SPARQLquery)
+    for binding in result['results']['bindings']:
+        if 'coreferenceURI' in binding['p']['value']:
+            uri = binding['o']['value']
+
+    return {uri: ''}
+
+
+def insert_coreference_uri(uri, is_confident, graph, triplestore_endpoint):
+    guid = str(uuid.uuid4())
+
+    SPARQLquery = """
+                    PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+
+                    INSERT DATA 
+                    {{ 
+                        GRAPH <{graph_guid}>
+                          {{ 
+                            <urn:cqa:annotation:{guid}> oa:coreferenceURI <{uri}> .
+                            <urn:cqa:annotation:{guid}> oa:isCoreferenceConfident \"{is_confident}\" .
+                          }}
+                    }}
+                """.format(graph_guid=graph, guid=guid, uri=uri, is_confident=is_confident)
+
+    insert_into_triplestore(triplestore_endpoint, graph, SPARQLquery)
+
+
+def get_qa_text_from_graph(triplestore_endpoint, graph_guid):
+    question_text = get_text_question_in_graph(triplestore_endpoint, graph_guid)[0]['text']
+    # TODO: this is temporary solution
+    question_text = question_text.split('$')[0]
+
+    SPARQLquery = """
+            PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+
+            SELECT ?answerText
+            FROM <{graph_guid}>
+            WHERE 
+            {{ 
+              VALUES ?p {{oa:textResponse}}
+              ?s ?p ?answerText
+            }}
+        """.format(graph_guid=graph_guid)
+
+    answer_text = None
+    result = queryTriplestore(triplestore_endpoint + "/query", graph_guid, SPARQLquery)
+
+    for binding in result['results']['bindings']:
+        answer_text = binding['answerText']['value']
+
+    return {'question_text': question_text, "answer_text": answer_text}
+
+
+def get_answer_uri(triplestore_endpoint, graph):
+    SPARQLquery = """
+            PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+
+            SELECT ?uri
+            FROM <{graph_guid}>
+            WHERE 
+            {{ 
+              VALUES ?p {{oa:uriResponse}}
+              ?s ?p ?uri
+            }}
+        """.format(graph_guid=graph)
+
+    uri = None
+    result = queryTriplestore(triplestore_endpoint + "/query", graph, SPARQLquery)
+
+    for binding in result['results']['bindings']:
+        uri = binding['uri']['value']
+
+    return uri
+
+def get_annotation_and_intent(triplestore_endpoint, graph):
     import ast
 
-    annotation = None
+    SPARQLquery = """
+                        PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+
+                        SELECT ?p ?o
+                        FROM <{graph_guid}>
+                        WHERE 
+                        {{
+                          VALUES ?p {{oa:namedEntities oa:intent}}
+                          ?s ?p ?o
+                        }}
+                    """.format(graph_guid=graph)
+
+    annotation = "{}"
     intent = None
 
     result = queryTriplestore(triplestore_endpoint + "/query", graph, SPARQLquery)
     for binding in result['results']['bindings']:
-        if 'spotlightAnnotation' in binding['p']['value']:
+        if 'namedEntities' in binding['p']['value']:
             annotation = binding['o']['value']
         elif 'intent' in binding['p']['value']:
             intent = binding['o']['value'].replace("http://www.w3.org/ns/openannotation/core/intent:", "")

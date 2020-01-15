@@ -104,7 +104,7 @@
     "query_type": "forward",
     "answer_templates": [
     "{result}.",
-    "{result} birth place is {original}"
+    "{original} birth place is {result}"
     ],
     "predicates": ["http://dbpedia.org/ontology/birthPlace"]
   },
@@ -475,5 +475,12 @@
     "{result} ",
     "The {original} has been produced by {result}."
     ]
-    }
+    },
+  "abstract": {
+    "query_type": "abstract",
+    "answer_templates": [
+    "{result}."
+    ],
+    "predicates": ["http://dbpedia.org/ontology/abstract"]
+  }
 }

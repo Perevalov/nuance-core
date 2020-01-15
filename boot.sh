@@ -29,6 +29,10 @@ then
   then
     exec gunicorn -b :5007 --access-logfile - --error-logfile - --chdir /home/nuance-core/qanary_components/template_generator app:app
     exit
+  elif [ $SERVICE_TYPE == "coreference_resolver" ]
+  then
+    exec gunicorn -b :5008 --access-logfile - --error-logfile - --chdir /home/nuance-core/qanary_components/coreference_resolver app:app
+    exit
   elif [ $SERVICE_TYPE == "backend" ]
   then
     exec gunicorn -b :5002 --access-logfile - --error-logfile - app:app

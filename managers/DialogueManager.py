@@ -58,12 +58,27 @@ class DialogueManager:
 
         return query
 
-    def get_answer(self, question_text):
+    def get_answer(self, question_text, session_id):
         """
 
         :param question_text:
         :return:
         """
+
+        #FOR TELL ME MORE FEATURE:
+        #TODO: check the dialogue state (started, in_process). if in process -- use previous context (if necessary)
+        # TODO: manually check "Tell me more about..." intent
+        #TODO: check if there is some coreference in question. if not -- do as usual
+        #TODO: if in process -- use previous context and cache subject (e.g. dbpedia.org/resource/Donald_Trump)
+        #TODO: Tell me more about the PERSON. Compare type label with previous context.
+
+        #FOR ENTITY RESOLUTION FEATURE:
+        #TODO: run Hugginface NER over question text if automatic NED (DBpedia Spotlight) doesn't recognize anything
+        #TODO: search in Wikidata for pages with label similar to Hugginface entity
+        #TODO: filter ones that don't have link to dbpedia
+        #TODO: find the most popular in pagerank file
+
+
         preprocessed_text = preprocess_text(question_text, remove_stopwords=False)
 
         template_prediction, is_confident = self.template_classifier.predict(preprocessed_text)

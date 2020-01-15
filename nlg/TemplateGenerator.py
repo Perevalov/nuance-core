@@ -1,6 +1,6 @@
 import random
 import string
-from resources.constants import TEMPLATES
+from resources.constants import TEMPLATES, TELL_ME_MORE_TEMPLATE
 
 
 def generate_answer(intents_dict, intent, sparql_result, annotation_dict):
@@ -19,23 +19,33 @@ def generate_answer(intents_dict, intent, sparql_result, annotation_dict):
             dist = sparql_result["results"]["bindings"][0]["distanceBetweenCities"]["value"]
             template = prepare_template(intents_dict, intent, dist, annotation_dict)
 
-            return template
+            return template, None
+        elif intent == TELL_ME_MORE_TEMPLATE:
+            if len(sparql_result["results"]["bindings"]) == 0:
+                return "Sorry, I don't know any other information"
+
+            for binding in sparql_result["results"]["bindings"]:
+                template = binding["a"]["value"]
+                return template
         else:
             labels_list = list()
             for binding in sparql_result["results"]["bindings"]:
                 if "aLabel" in binding and len(binding["aLabel"]) > 0:
-                    labels_list.append(binding["aLabel"]["value"])
+                    labels_list.append((binding["aLabel"]["value"], binding["a"]["value"]))
 
             if len(labels_list) > 0:
                 result = random.choice(labels_list)
-                template = prepare_template(intents_dict, intent, result, annotation_dict)
+                label = result[0]
+                uri = result[1]
 
-                return template
+                template = prepare_template(intents_dict, intent, label, annotation_dict)
 
-            result = random.choice(sparql_result["results"]["bindings"])["a"]["value"]
-            template = prepare_template(intents_dict, intent, result, annotation_dict)
+                return template, uri
 
-            return template
+            uri = random.choice(sparql_result["results"]["bindings"])["a"]["value"]
+            template = prepare_template(intents_dict, intent, uri, annotation_dict)
+
+            return template, uri
 
     elif "boolean" in sparql_result.keys():
         if intent == "was_born":
@@ -44,7 +54,7 @@ def generate_answer(intents_dict, intent, sparql_result, annotation_dict):
                 template = "Yes, it is true."
             else:
                 template = "No, that is false"
-            return template
+            return template, None
 
     else:
         return "Sorry, there is not enough information in my database"
