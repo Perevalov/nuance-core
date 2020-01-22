@@ -19,14 +19,14 @@ def generate_answer(intents_dict, intent, sparql_result, annotation_dict):
             dist = sparql_result["results"]["bindings"][0]["distanceBetweenCities"]["value"]
             template = prepare_template(intents_dict, intent, dist, annotation_dict)
 
-            return template, None
+            return template, "http://example.come/None"
         elif intent == TELL_ME_MORE_TEMPLATE:
             if len(sparql_result["results"]["bindings"]) == 0:
-                return "Sorry, I don't know any other information"
+                return "Sorry, I don't know any other information", "http://example.come/None"
 
             for binding in sparql_result["results"]["bindings"]:
                 template = binding["a"]["value"]
-                return template
+                return template.split('.')[0], "http://example.come/None"
         else:
             labels_list = list()
             for binding in sparql_result["results"]["bindings"]:
@@ -54,7 +54,7 @@ def generate_answer(intents_dict, intent, sparql_result, annotation_dict):
                 template = "Yes, it is true."
             else:
                 template = "No, that is false"
-            return template, None
+            return template, "http://example.come/None"
 
     else:
         return "Sorry, there is not enough information in my database"
