@@ -140,23 +140,6 @@
     "You can see {result} in {original}"
     ]
   },
-  "backward_located_in": {
-  "keywords": [
-    "where",
-    "located",
-    "location",
-    "happen",
-    "happened"
-  ],
-  "query_type": "backward",
-  "predicates": ["http://dbpedia.org/ontology/location",
-    "http://dbpedia.org/property/mapCaption",
-    "http://dbpedia.org/property/location",
-    "http://dbpedia.org/ontology/isPartOf"],
-  "answer_templates": [
-    "{result}."
-    ]
-  },
   "located_in": {
   "keywords": [
     "where",
@@ -213,7 +196,7 @@
     "query_type": "backward",
     "predicates": ["http://dbpedia.org/ontology/writer"],
     "answer_templates": [
-    "{original} wrote the {result}."
+    "{original} is the writer of {result}."
     ]
     },
   "writer": {
@@ -225,7 +208,7 @@
     "query_type": "forward",
     "predicates": ["http://dbpedia.org/ontology/writer"],
     "answer_templates": [
-    "{original} is the writer of {result}."
+    "{original} writed by {result}."
     ]
     },
   "backward_artist": {
