@@ -119,7 +119,7 @@ def get_answer_qanary():
     insert_into_triplestore(endpoint, in_graph, SPARQLquery)
 
 
-    return json.dumps({"system_text": answer_text, "session_id": session_id})
+    return json.dumps({"system_text": answer_text, "session_id": session_id, "in_graph": in_graph})
 
 if __name__ == "__main__":
     app.run(debug=True, host='127.0.0.1', port=5050)
