@@ -62,6 +62,12 @@ def qanaryService():
                                                    SPARQLquery=SPARQLquery)
 
     result = SPARQLWorker.execute_query({"query": sparql_query})
+    #TODO: &quot; &apos;
+    try:
+        result['results']['bindings'][0]['a']['value'] = result['results']['bindings'][0]['a']['value'].replace("\"", "").replace("\'", "")
+    except:
+        print("BAD conversion")
+
 
     guid = str(uuid.uuid4())
 
@@ -72,7 +78,7 @@ def qanaryService():
             {{ 
                 GRAPH <{graph_guid}>
                   {{ 
-                    <urn:cqa:annotation:{guid}> oa:sparqlResult \"{sparql_result}\" 
+                    <urn:cqa:annotation:{guid}> oa:sparqlResult \"{sparql_result}\"^^<http://www.w3.org/2001/XMLSchema#string>
                   }}
             }}
         """.format(graph_guid=triplestore_ingraph, guid=guid, sparql_result=str(result).replace("\"", "\\\""))

@@ -3,6 +3,7 @@ import os
 import sys
 import uuid
 import json
+from resources.constants import *
 
 sys.path.insert(1, '../../')
 
@@ -67,21 +68,12 @@ def qanaryService():
                                               SPARQLquery=SPARQLquery)
 
     if validation_result:
-        SPARQLquery = """
-                        PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
-    
-                        SELECT ?p ?o
-                        FROM <{graph_guid}>
-                        WHERE 
-                        {{
-                          VALUES ?p {{oa:spotlightAnnotation oa:intent}}
-                          ?s ?p ?o
-                        }}
-                    """.format(graph_guid=triplestore_ingraph)
-
         annotation, intent = get_annotation_and_intent(triplestore_endpoint=triplestore_endpoint,
-                                                       graph=triplestore_ingraph,
-                                                       SPARQLquery=SPARQLquery)
+                                                       graph=triplestore_ingraph)
+
+        if intent == TELL_ME_MORE_TEMPLATE:
+            annotation = get_coreference_uri(triplestore_endpoint=triplestore_endpoint,
+                                             graph=triplestore_ingraph)
 
         SPARQLquery = """
                         PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
@@ -99,7 +91,7 @@ def qanaryService():
                                                        graph=triplestore_ingraph,
                                                        SPARQLquery=SPARQLquery)
 
-        text_response = TemplateGenerator.generate_answer(intents, intent, sparql_result, annotation)
+        text_response, uri = TemplateGenerator.generate_answer(intents, intent, sparql_result, annotation)
 
     else:
         text_response = "Sorry, please ask again in different way"
@@ -113,10 +105,11 @@ def qanaryService():
                 {{ 
                     GRAPH <{graph_guid}>
                       {{ 
-                        <urn:cqa:annotation:{guid}> oa:textResponse \"{text_response}\" 
+                        <urn:cqa:annotation:{guid}> oa:textResponse \"{text_response}\" .
+                        <urn:cqa:annotation:{guid}> oa:uriResponse <{uri_response}> .
                       }}
                 }}
-            """.format(graph_guid=triplestore_ingraph, guid=guid, text_response=text_response)
+            """.format(graph_guid=triplestore_ingraph, guid=guid, text_response=text_response, uri_response=uri)
 
     insert_into_triplestore(triplestore_endpoint, triplestore_ingraph, SPARQLquery)
 

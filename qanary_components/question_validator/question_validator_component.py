@@ -47,21 +47,11 @@ def qanaryService():
     triplestore_ingraph  = request.json["values"]["urn:qanary#inGraph"]
     triplestore_outgraph = request.json["values"]["urn:qanary#outGraph"]
 
-    SPARQLquery = """
-                    PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
-
-                    SELECT ?p ?o
-                    FROM <{graph_guid}>
-                    WHERE 
-                    {{
-                      VALUES ?p {{oa:spotlightAnnotation oa:intent}}
-                      ?s ?p ?o
-                    }}
-                """.format(graph_guid=triplestore_ingraph)
-
     annotation, intent = get_annotation_and_intent(triplestore_endpoint=triplestore_endpoint,
-                                                                graph=triplestore_ingraph,
-                                                                SPARQLquery=SPARQLquery)
+                                                                graph=triplestore_ingraph)
+    if intent == 'abstract':
+        annotation = get_coreference_uri(triplestore_endpoint=triplestore_endpoint,
+                                                                graph=triplestore_ingraph)
 
     validation_result = validate_question(intent, annotation)
 

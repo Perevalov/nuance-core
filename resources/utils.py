@@ -3,6 +3,7 @@ from nltk.tokenize import RegexpTokenizer
 from nltk.corpus import stopwords
 from nlu.classifiers.MLClassifier import MLClassifier
 from resources.constants import *
+from fuzzywuzzy import fuzz
 import pickle
 import os
 import config
@@ -12,6 +13,11 @@ import config
 
 tokenizer = RegexpTokenizer(r'\w+')
 stopwords = stopwords.words('english')
+
+#TODO: append WHERE to stopwords
+custom_stopwords = ['where']
+stopwords = stopwords + custom_stopwords
+
 
 def preprocess_text(text, remove_stopwords=True, lowercase=True):
     # clean_ascii
@@ -23,12 +29,26 @@ def preprocess_text(text, remove_stopwords=True, lowercase=True):
     tokens = tokenizer.tokenize(tmp)
     # stopwords
     if remove_stopwords:
-        prep_text = ' '.join(t for t in tokens if t not in stopwords)
+        prep_text = ' '.join(t for t in tokens if t.lower() not in stopwords)
     else:
         prep_text = ' '.join(t for t in tokens)
 
     return prep_text
 
+
+def find_best_string_match(strings_list, mask):
+    """
+    Finds most similar string in a list of strings using fuzzywuzzy
+
+    :param strings_list: list of strings to compare
+    :param mask: string to match
+    :return: index of most similar string in the given list
+    """
+    ratios = list()
+    for str in strings_list:
+        ratios.append(fuzz.ratio(str.lower(), mask.lower()))
+
+    return ratios.index(max(ratios)), max(ratios)
 
 def init_ml_classifiers():
     template_vectorizer = pickle.load(open(os.path.join(config.PROJECT_PATH, "models", "template_vectorizer.model"), 'rb'))

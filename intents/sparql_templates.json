@@ -33,5 +33,13 @@
       "closure": " }"
     },
     "parameters_number": 2
+  },
+  "abstract": {
+    "query": {
+      "head": " SELECT ?a WHERE { ",
+      "body": " <{entity}> <http://dbpedia.org/ontology/abstract> ?a . FILTER(LANG(?a) = \"en\") . ",
+      "closure": "} LIMIT 1"
+    },
+    "parameters_number": 1
   }
 }

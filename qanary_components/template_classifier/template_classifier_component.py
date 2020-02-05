@@ -28,6 +28,14 @@ fwd_bwd_classifier = pickle.load(open(os.path.join(config.PROJECT_PATH, "models"
 
 fwd_bwd_classifier = MLClassifier(fwd_bwd_classifier, fwd_bwd_vectorizer, fwd_bwd_encoder)
 
+def tell_me_more_classifier(question_text):
+    """
+    Rule based method for TELL_ME_MORE intent classification
+    :param question_text: user's text
+    :return: boolean value
+    """
+    return "tell me more" in question_text.lower()
+
 @template_classifier_component.route("/annotatequestion", methods=['POST'])
 def qanaryService():
     """the POST endpoint required for a Qanary service"""
@@ -37,13 +45,29 @@ def qanaryService():
     triplestore_outgraph = request.json["values"]["urn:qanary#outGraph"]
 
     text = get_text_question_in_graph(triplestore_endpoint=triplestore_endpoint, graph=triplestore_ingraph)[0]['text']
-    print("Question Text: {0}".format(text))
-    preprocessed_text = preprocess_text(text, remove_stopwords=False)
-    print("Preprocessed text: {0}".format(preprocessed_text))
-    template_prediction, is_confident = template_classifier.predict(preprocessed_text)
 
-    if template_prediction == 'FWD_BWD':
-        template_prediction, is_confident = fwd_bwd_classifier.predict(preprocessed_text)
+    # TODO: this is temporary solution
+    values = text.split('$')
+    text = values[0]
+    session_id = values[1]
+
+    #dialogue_state = get_dialogue_state(triplestore_endpoint, session_id)
+
+    print("Question Text: {0}".format(text))
+
+    is_tell_me_more = tell_me_more_classifier(text)
+
+    if is_tell_me_more:
+        template_prediction = TELL_ME_MORE_TEMPLATE
+        is_confident = True
+    else:
+        preprocessed_text = preprocess_text(text, remove_stopwords=False)
+        print("Preprocessed text: {0}".format(preprocessed_text))
+        template_prediction, is_confident = template_classifier.predict(preprocessed_text)
+
+        if template_prediction == 'FWD_BWD':
+            template_prediction, is_confident = fwd_bwd_classifier.predict(preprocessed_text)
+        template_prediction = template_prediction[0]
 
     guid = str(uuid.uuid4())
 
@@ -58,7 +82,7 @@ def qanaryService():
                 <urn:cqa:annotation:{guid}> oa:isTemplateClassifierConfident oa:boolean:{is_confident}
               }}
         }}
-    """.format(graph_guid=triplestore_ingraph, guid=guid, template_type=template_prediction[0], is_confident=is_confident)
+    """.format(graph_guid=triplestore_ingraph, guid=guid, template_type=template_prediction, is_confident=is_confident)
 
     insert_into_triplestore(triplestore_endpoint, triplestore_ingraph, SPARQLquery)
 

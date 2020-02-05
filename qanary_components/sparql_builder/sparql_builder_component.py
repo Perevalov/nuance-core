@@ -48,22 +48,13 @@ def qanaryService():
     if not validation_result:
         return jsonify(request.get_json())
 
-    SPARQLquery = """
-                        PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
-
-                        SELECT ?p ?o
-                        FROM <{graph_guid}>
-                        WHERE 
-                        {{
-                          VALUES ?p {{oa:spotlightAnnotation oa:intent}}
-                          ?s ?p ?o
-                        }}
-                    """.format(graph_guid=triplestore_ingraph)
-
     annotation, intent = get_annotation_and_intent(triplestore_endpoint=triplestore_endpoint,
-                                                   graph=triplestore_ingraph,
-                                                   SPARQLquery=SPARQLquery)
+                                                   graph=triplestore_ingraph)
 
+    if intent == TELL_ME_MORE_TEMPLATE:
+        annotation = get_coreference_uri(triplestore_endpoint=triplestore_endpoint,
+                                         graph=triplestore_ingraph)
+        
     sparql_builder = SPARQLBuilder(sparql_templates)
     query_type = intents[intent][QUERY_TYPE]
 

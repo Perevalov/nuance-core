@@ -4,10 +4,12 @@ import os
 import sys
 import uuid
 import json
+import numpy as np
 
 sys.path.insert(1, '../../')
 
 from resources.qanary_helpers import *
+from resources.constants import *
 import config
 from nlu.classifiers.MLClassifier import MLClassifier
 from resources.constants import *
@@ -34,26 +36,33 @@ def qanaryService():
     triplestore_outgraph = request.json["values"]["urn:qanary#outGraph"]
 
     text = get_text_question_in_graph(triplestore_endpoint=triplestore_endpoint, graph=triplestore_ingraph)[0]['text']
+    # TODO: this is temporary solution
+    text = text.split('$')[0]
+
     print("Question Text: {0}".format(text))
     preprocessed_text = preprocess_text(text, remove_stopwords=False)
     print("Preprocessed text: {0}".format(preprocessed_text))
-    relation_prediction, is_confident = relation_classifier.predict(preprocessed_text)
 
     SPARQLquery = """
-                PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+                    PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
 
-                SELECT ?p ?o
-                FROM <{graph_guid}>
-                WHERE 
-                {{
-                  VALUES ?p {{oa:templateType oa:isTemplateClassifierConfident}}
-                  ?s ?p ?o
-                }}
-            """.format(graph_guid=triplestore_ingraph)
+                    SELECT ?p ?o
+                    FROM <{graph_guid}>
+                    WHERE 
+                    {{
+                      VALUES ?p {{oa:templateType oa:isTemplateClassifierConfident}}
+                      ?s ?p ?o
+                    }}
+                """.format(graph_guid=triplestore_ingraph)
 
     template_prediction, is_confident = get_template_prediction(triplestore_endpoint=triplestore_endpoint,
                                                                 graph=triplestore_ingraph,
                                                                 SPARQLquery=SPARQLquery)
+
+    if template_prediction == TELL_ME_MORE_TEMPLATE:
+        relation_prediction = np.array(['http://dbpedia.org/ontology/abstract'])
+    else:
+        relation_prediction, is_confident = relation_classifier.predict(preprocessed_text)
 
     guid = str(uuid.uuid4())
 
