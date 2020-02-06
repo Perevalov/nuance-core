@@ -53,7 +53,7 @@ logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 # allow configuration of the configfile via command line parameters
 # argparser = argparse.ArgumentParser(description='You might provide a configuration file, otherwise "%s" is used.' % (configfile) )
 # argparser.add_argument('-c', '--configfile', action='store', dest='configfile', default=configfile, help='overwrite the default configfile "%s"' % (configfile))
-configfile = configfile  # argparser.parse_args().configfile
+# configfile = argparser.parse_args().configfile    todo remove code comments
 configuration = Configuration(configfile,
                               ['springbootadminserverurl', 'springbootadminserveruser', 'springbootadminserverpassword',
                                'servicehost', 'serviceport', 'servicename', 'servicedescription'])

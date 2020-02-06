@@ -9,7 +9,8 @@ coref = neuralcoref.NeuralCoref(nlp.vocab, greedyness=0.8)
 nlp.add_pipe(coref, name='neuralcoref')
 
 
-def has_coref(text):
+def has_coref(text: str) -> bool:
+    """returns true only if text is likely to contain a coreference"""
     #TODO: use NLTK word tagger (pronouns)
     pronouns = ['him', 'his', 'her', 'hers', 'it']
     # TODO: tokenize using tokenizer
@@ -17,13 +18,24 @@ def has_coref(text):
     return any(word in text for word in pronouns)
 
 
-def execute_resolver(text):
-    #TODO: question mark issue
+def execute_resolver(text: str):
+    # TODO: question mark issue
     doc = nlp(text)
     return doc
 
 
-def get_coreferent_label(question_1, question_2, answer):
+def get_coreferent_label(question_1: str, question_2: str, answer: str) -> str:
+    """Returns the label of the strongest coreference between the input parameter texts.
+
+    given a coreference between either question_1 and answer or question_2 and answer exists,
+    this method will find out which of these two options is more likely
+    and return the  entity referenced by the corresponding coreference in text form.
+
+    :param question_1:
+    :param question_2:
+    :param answer: The answer for question_1
+    :return:
+    """
     scores = [-9999, -9999]
     labels = ['', '']
 
@@ -31,7 +43,7 @@ def get_coreferent_label(question_1, question_2, answer):
     doc_2 = execute_resolver(answer + ' ' + question_2)
 
     if doc_1._.has_coref:
-        for cluster in list(doc_1._.coref_scores.keys()):
+        for cluster in list(doc_1._.coref_scores.keys()):   # do for each eventual coreference that has been detected
             if str(cluster) in question_2:
                 max_score = max(doc_1._.coref_scores[cluster].values())
                 if max_score > scores[0]:
@@ -39,7 +51,7 @@ def get_coreferent_label(question_1, question_2, answer):
                     labels[0] = str(max(doc_1._.coref_scores[cluster], key=doc_1._.coref_scores[cluster].get))
 
     if doc_2._.has_coref:
-        for cluster in list(doc_2._.coref_scores.keys()):
+        for cluster in list(doc_2._.coref_scores.keys()):   # do for each eventual coreference that has been detected
             if str(cluster) in question_2:
                 max_score = max(doc_2._.coref_scores[cluster].values())
                 if max_score > scores[1]:

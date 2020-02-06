@@ -12,12 +12,13 @@ from resources.utils import preprocess_text, map_template_and_relation_to_intent
 
 coreference_resolver_component = Blueprint('coreference_resolver_component', __name__, template_folder='templates')
 
+
 @coreference_resolver_component.route("/annotatequestion", methods=['POST'])
 def qanaryService():
     """the POST endpoint required for a Qanary service"""
-    
+
     triplestore_endpoint = request.json["values"]["urn:qanary#endpoint"]
-    triplestore_ingraph  = request.json["values"]["urn:qanary#inGraph"]
+    triplestore_ingraph = request.json["values"]["urn:qanary#inGraph"]
     triplestore_outgraph = request.json["values"]["urn:qanary#outGraph"]
 
     text = get_text_question_in_graph(triplestore_endpoint=triplestore_endpoint, graph=triplestore_ingraph)[0]['text']
@@ -36,6 +37,7 @@ def qanaryService():
         qa_pair_id = get_most_recent_qa_pair(triplestore_endpoint, session_id)
         qa_pair = get_qa_text_from_graph(triplestore_endpoint, qa_pair_id)
 
+        # only examine
         if qa_pair:
             question_1 = qa_pair["question_text"]
             answer = qa_pair["answer_text"]
@@ -45,7 +47,7 @@ def qanaryService():
 
             if result:
                 # TODO: decide which annotation should we retrieve (answer or question)
-                if result['index'] == 0: #that means we search for question's annotation
+                if result['index'] == 0:  # that means we search for question's annotation
                     annotation, intent = get_annotation_and_intent(triplestore_endpoint, qa_pair_id)
                     label = result['label']
                     # TODO: fuzzy search for entity in annotation dict (if found - put it to annotation)
@@ -63,6 +65,7 @@ def qanaryService():
     print("endpoint: %s, ingraph: %s, outGraph: %s" % (triplestore_endpoint, triplestore_ingraph, triplestore_outgraph))
 
     return jsonify(request.get_json())
+
 
 @coreference_resolver_component.route("/", methods=['GET'])
 def index():
