@@ -11,7 +11,7 @@ nlp.add_pipe(coref, name='neuralcoref')
 
 def has_coref(text: str) -> bool:
     """returns true only if text is likely to contain a coreference"""
-    #TODO: use NLTK word tagger (pronouns)
+    # TODO: use NLTK word tagger (pronouns)
     pronouns = ['him', 'his', 'her', 'hers', 'it']
     # TODO: tokenize using tokenizer
     text = text.split()
@@ -24,7 +24,7 @@ def execute_resolver(text: str):
     return doc
 
 
-def get_coreferent_label(question_1: str, question_2: str, answer: str) -> str:
+def get_coreferent_label(question_1: str, question_2: str, answer: str) -> dict:
     """Returns the label of the strongest coreference between the input parameter texts.
 
     given a coreference between either question_1 and answer or question_2 and answer exists,
@@ -43,20 +43,16 @@ def get_coreferent_label(question_1: str, question_2: str, answer: str) -> str:
     doc_2 = execute_resolver(answer + ' ' + question_2)
 
     if doc_1._.has_coref:
-        for cluster in list(doc_1._.coref_scores.keys()):   # do for each eventual coreference that has been detected
-            if str(cluster) in question_2:
-                max_score = max(doc_1._.coref_scores[cluster].values())
-                if max_score > scores[0]:
-                    scores[0] = max_score
-                    labels[0] = str(max(doc_1._.coref_scores[cluster], key=doc_1._.coref_scores[cluster].get))
+        scores[0], labels[0] = extract_coreferences(doc_1, question_2)
 
     if doc_2._.has_coref:
-        for cluster in list(doc_2._.coref_scores.keys()):   # do for each eventual coreference that has been detected
-            if str(cluster) in question_2:
+        scores[1], labels[1] = extract_coreferences(doc_2, question_2)
+        """for cluster in list(doc_2._.coref_scores.keys()):   # do for each eventual coreference that has been detected
+                if str(cluster) in question_2:
                 max_score = max(doc_2._.coref_scores[cluster].values())
                 if max_score > scores[1]:
                     scores[1] = max_score
-                    labels[1] = str(max(doc_2._.coref_scores[cluster], key=doc_2._.coref_scores[cluster].get))
+                    labels[1] = str(max(doc_2._.coref_scores[cluster], key=doc_2._.coref_scores[cluster].get))"""
 
     max_index = scores.index(max(scores))
 
@@ -65,3 +61,20 @@ def get_coreferent_label(question_1: str, question_2: str, answer: str) -> str:
     else:
         return None
 
+
+def extract_coreferences(doc, question: str, min_score=-9999) -> (dict, dict):
+    """Puts all the coreferences from a given question into a readable dictionary
+
+    :param doc:
+    :param question:
+    :param min_score:
+    :return:
+    """
+    score = min_score
+    for cluster in list(doc._.coref_scores.keys()):  # do for each eventual coreference that has been detected
+        if str(cluster) in question:
+            max_score = max(doc._.coref_scores[cluster].values())
+            if max_score > score[0]:
+                score = max_score
+                label = str(max(doc._.coref_scores[cluster], key=doc._.coref_scores[cluster].get))
+    return score, label
