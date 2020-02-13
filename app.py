@@ -61,8 +61,6 @@ def get_answer():
     answer_text = dialogue_manager.get_answer(question_text, session_id)
     print("Answer text is: {0}".format(answer_text))
 
-    #TODO: save session_id, question and answer text to tripletstore (database)
-
 
     print("[/get_answer] Ended")
 

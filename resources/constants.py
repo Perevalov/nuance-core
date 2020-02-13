@@ -26,3 +26,6 @@ DISTANCE_TEMPLATE = "distance"
 FWD_BWD_TEMPLATE = "forward backward"
 TELL_ME_MORE_TEMPLATE = "abstract"
 
+# For SQL database
+QUESTION_TYPE = 0
+ANSWER_TYPE = 1

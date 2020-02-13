@@ -57,7 +57,7 @@ def generate_answer(intents_dict, intent, sparql_result, annotation_dict):
             return template, "http://example.come/None"
 
     else:
-        return "Sorry, there is not enough information in my database"
+        return "Sorry, there is not enough information in my database", "http://example.come/None"
 
 
 def prepare_template(intents_dict, intent, result, annotation_dict):
