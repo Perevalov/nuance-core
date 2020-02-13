@@ -4,4 +4,3 @@ Flask==1.0.2
 Flask_Cors==3.0.7
 SPARQLWrapper==1.8.4
 sklearn
-sqlite3
