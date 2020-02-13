@@ -1,8 +1,4 @@
 import os
-import subprocess
-
-process = subprocess.Popen("python -m spacy download en".split(), stdout=subprocess.PIPE)
-output, error = process.communicate()
 
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
