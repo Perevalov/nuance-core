@@ -1,7 +1,7 @@
 import random
 import uuid
 from datetime import datetime
-import pytz
+#import pytz
 import sqlite3
 from resources.constants import QUESTION_TYPE
 from config import DB_PATH
