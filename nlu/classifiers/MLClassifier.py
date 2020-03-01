@@ -6,7 +6,7 @@ from nlu.classifiers.Classifier import Classifier
 
 
 class MLClassifier(Classifier):
-    def __init__(self, classifier_model, vectorizer_model, label_encoder_model, threshold=0.3):
+    def __init__(self, classifier_model, vectorizer_model, label_encoder_model, threshold=0.01):
 
         self.THRESHOLD = threshold
         self.classifier_model = classifier_model

@@ -41,7 +41,7 @@
       "song"
     ],
     "query_type": "forward",
-    "predicates": ["http://dbpedia.org/ontology/genre"],
+    "predicates": ["http://dbpedia.org/ontology/genre", "http://dbpedia.org/property/genre"],
     "answer_templates": [
     "{result}.",
     "{original} plays {result}."
@@ -55,7 +55,7 @@
       "song"
     ],
     "query_type": "backward",
-    "predicates": ["http://dbpedia.org/ontology/genre"],
+    "predicates": ["http://dbpedia.org/ontology/genre", "http://dbpedia.org/property/genre"],
     "answer_templates": [
     "Would you like to listen for {result}.",
     "OK. I think you might enjoy starting with {result}.",
@@ -91,7 +91,7 @@
     "This person is {result}.",
     "{result} birth place is {original}"
     ],
-    "predicates": ["http://dbpedia.org/ontology/birthPlace"]
+    "predicates": ["http://dbpedia.org/ontology/birthPlace", "http://dbpedia.org/ontology/birthPlace"]
   },
   "forward_was_born": {
     "keywords": [
@@ -106,7 +106,7 @@
     "{result}.",
     "{original} birth place is {result}"
     ],
-    "predicates": ["http://dbpedia.org/ontology/birthPlace"]
+    "predicates": ["http://dbpedia.org/ontology/birthPlace", "http://dbpedia.org/ontology/birthPlace"]
   },
   "was_born": {
     "keywords": [
@@ -121,7 +121,7 @@
     "This person was born in {result}.",
     "in {result}."
     ],
-    "predicates": ["http://dbpedia.org/ontology/birthPlace"]
+    "predicates": ["http://dbpedia.org/ontology/birthPlace", "http://dbpedia.org/ontology/birthPlace"]
   },
   "backward_located_in": {
   "keywords": [
@@ -463,24 +463,388 @@
     ]
     },
     "forward_producer": {
-    "keywords": [
-    "producer of",
-    "produced the",
-    "produced",
-    "been producing"
-    ],
-    "query_type": "forward",
-    "predicates": ["http://dbpedia.org/ontology/producer"],
-    "answer_templates": [
-    "{result} ",
-    "The {original} has been produced by {result}."
-    ]
+      "keywords": [
+      "producer of",
+      "produced the",
+      "produced",
+      "been producing"
+      ],
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/producer"],
+      "answer_templates": [
+      "{result} ",
+      "The {original} has been produced by {result}."
+      ]
     },
-  "abstract": {
-    "query_type": "abstract",
-    "answer_templates": [
-    "{result}."
-    ],
-    "predicates": ["http://dbpedia.org/ontology/abstract"]
-  }
+    "forward_deathCause": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/deathCause"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_deathCause": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/deathCause"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_instrument": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/instrument"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_instrument": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/instrument"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_modes": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/modes"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_modes": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/modes"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_composer": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/composer"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_composer": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/composer"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_publisher": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/publisher"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_publisher": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/publisher"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_battle": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/battle"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_battle": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/battle"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_nationality": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/nationality"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_nationality": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/nationality"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_influencedBy": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/influencedBy"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_influencedBy": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/influencedBy"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_place": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/place"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_place": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/place"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_industry": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/industry"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_industry": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/industry"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_creator": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/creator"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_creator": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/creator"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_developer": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/developer"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_developer": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/developer"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_occupation": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/occupation"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_occupation": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/occupation"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_architecturalStyle": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/architecturalStyle"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_architecturalStyle": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/architecturalStyle"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_parent": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/parent"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_parent": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/parent"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_locatedInArea": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/locatedInArea"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_locatedInArea": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/locatedInArea"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_cinematography": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/cinematography"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_cinematography": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/cinematography"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_distributor": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/distributor"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_distributor": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/distributor"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_child": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/child"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_child": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/child"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_restingPlace": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/restingPlace"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_restingPlace": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/restingPlace"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_field": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/field"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_field": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/field"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_headquarter": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/headquarter"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_headquarter": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/headquarter"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_ideology": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/ideology"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_ideology": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/ideology"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_religion": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/religion"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_religion": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/religion"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_foundedBy": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/foundedBy"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_foundedBy": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/foundedBy"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "forward_series": {
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/series"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "backward_series": {
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/series"],
+      "answer_templates": [
+      "{result} "
+      ]
+    },
+    "abstract": {
+      "query_type": "abstract",
+      "answer_templates": [
+      "{result}."
+      ],
+      "predicates": ["http://dbpedia.org/ontology/abstract"]
+    }
 }
