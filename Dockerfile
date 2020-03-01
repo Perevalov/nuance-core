@@ -8,6 +8,7 @@ COPY requirements.txt ./
 RUN pip install --upgrade pip -r requirements.txt; exit 0
 
 RUN pip install gunicorn
+RUN python -m spacy download en
 
 # Копирование файлов проекта
 COPY data data
