@@ -155,6 +155,11 @@ class DialogueManager:
                     else:
                         annotation_dict = answer['uri']
 
+        print("Relation {0}".format(relation_prediction))
+        print("Template {0}".format(template_prediction))
+        print("Intent {0}".format(intent))
+        print("Annotation {0}".format(annotation_dict.keys()))
+        
         # TODO: annotation_dict = prev_annot
         if self.validate_question(intent, annotation_dict):
             query = self.get_sparql(intent, list(annotation_dict.keys()))
