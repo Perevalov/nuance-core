@@ -66,7 +66,25 @@
     "OK, let's press play. Starting with {result}."
     ]
     },
-  "time_zone": {
+    "boolean_genre": {
+      "keywords": [
+        "music",
+        "genre",
+        "album",
+        "song"
+      ],
+      "query_type": "boolean",
+      "predicates": ["http://dbpedia.org/ontology/genre",
+        "http://dbpedia.org/property/genre"],
+      "answer_templates": [
+      "Would you like to listen for {result}.",
+      "OK. I think you might enjoy starting with {result}.",
+      "Tuning in your personal radio station. First up, {result}.",
+      "What about {result}? Playing now.",
+      "OK, let's press play. Starting with {result}."
+      ]
+    },
+  "forward_timeZone": {
     "keywords": [
       "timezone",
       "time zone"
@@ -80,6 +98,36 @@
     "It is {result}",
     "{result}"
     ]
+    },
+  "backward_timeZone": {
+      "keywords": [
+        "timezone",
+        "time zone"
+      ],
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/property/timezone",
+        "http://dbpedia.org/ontology/timeZone"],
+      "answer_templates": [
+      "The timezone is {result}",
+      "The timezone of this location is {result}",
+      "It is {result}",
+      "{result}"
+      ]
+    },
+  "boolean_timeZone": {
+      "keywords": [
+        "timezone",
+        "time zone"
+      ],
+      "query_type": "backward",
+      "predicates": ["http://dbpedia.org/property/timezone",
+        "http://dbpedia.org/ontology/timeZone"],
+      "answer_templates": [
+      "The timezone is {result}",
+      "The timezone of this location is {result}",
+      "It is {result}",
+      "{result}"
+      ]
     },
   "backward_birthPlace": {
     "keywords": [
@@ -106,6 +154,22 @@
       "where"
     ],
     "query_type": "forward",
+    "answer_templates": [
+    "{result}.",
+    "{original} birth place is {result}"
+    ],
+    "predicates": ["http://dbpedia.org/property/birthPlace",
+      "http://dbpedia.org/ontology/birthPlace"]
+  },
+  "boolean_birthPlace": {
+    "keywords": [
+      "city",
+      "country",
+      "born",
+      "birth",
+      "where"
+    ],
+    "query_type": "boolean",
     "answer_templates": [
     "{result}.",
     "{original} birth place is {result}"
@@ -165,6 +229,33 @@
     "That's going to be in {result}."
     ]
   },
+  "boolean_locatedIn": {
+    "keywords": [
+      "where",
+      "located",
+      "location",
+      "happen",
+      "happened"
+    ],
+    "query_type": "boolean",
+    "predicates": ["http://dbpedia.org/ontology/location",
+      "http://dbpedia.org/property/mapCaption",
+      "http://dbpedia.org/ontology/mapCaption",
+      "http://dbpedia.org/property/location",
+      "http://dbpedia.org/ontology/city",
+      "http://dbpedia.org/property/city",
+      "http://dbpedia.org/ontology/isPartOf",
+      "http://dbpedia.org/property/isPartOf",
+      "http://dbpedia.org/ontology/place",
+      "http://dbpedia.org/property/place",
+      "http://dbpedia.org/ontology/locatedInArea",
+      "http://dbpedia.org/property/locatedInArea"],
+    "answer_templates": [
+      "That's located in {result}.",
+      "The {original} is located in {result}.",
+      "That's going to be in {result}."
+      ]
+    },
   "forward_position": {
     "keywords": [
       "position",
@@ -193,6 +284,20 @@
     "The position of {original} is {result}."
     ]
     },
+  "boolean_position": {
+      "keywords": [
+        "position",
+        "position of"
+      ],
+      "query_type": "boolean",
+      "predicates": ["http://dbpedia.org/ontology/position",
+        "http://dbpedia.org/property/position",
+        "http://dbpedia.org/property/careerPosition",
+        "http://dbpedia.org/ontology/careerPosition"],
+      "answer_templates": [
+      "The position of {original} is {result}."
+      ]
+  },
   "forward_deathPlace": {
     "keywords": [
       "died in",
@@ -225,6 +330,22 @@
     "This person died in {result}."
     ]
   },
+  "boolean_deathPlace": {
+    "keywords": [
+      "died in",
+      "death place",
+      "died at",
+      "place of death",
+      "place death"
+    ],
+    "query_type": "boolean",
+    "predicates": ["http://dbpedia.org/ontology/deathPlace",
+      "http://dbpedia.org/property/deathPlace"],
+    "answer_templates": [
+    "{original} has died in {result}.",
+    "This person died in {result}."
+    ]
+  },
   "backward_artist": {
     "keywords": [
       "artist",
@@ -245,6 +366,19 @@
       "lead artist"
     ],
     "query_type": "forward",
+    "predicates": ["http://dbpedia.org/ontology/artist",
+      "http://dbpedia.org/property/artist"],
+    "answer_templates": [
+    "{original} is the lead artist in {result}."
+    ]
+    },
+  "boolean_artist": {
+    "keywords": [
+      "artist",
+      "performer",
+      "lead artist"
+    ],
+    "query_type": "boolean",
     "predicates": ["http://dbpedia.org/ontology/artist",
       "http://dbpedia.org/property/artist"],
     "answer_templates": [
@@ -280,6 +414,21 @@
     "{result} located in {original}"
     ]
     },
+  "boolean_country": {
+      "keywords": [
+        "located",
+        "country",
+        "situated in",
+        "situated"
+      ],
+      "query_type": "boolean",
+      "predicates": ["http://dbpedia.org/ontology/country",
+        "http://dbpedia.org/property/country"],
+      "answer_templates": [
+      "{result} is in this country.",
+      "{result} located in {original}"
+      ]
+      },
   "forward_recordLabel": {
     "keywords": [
       "label",
@@ -298,7 +447,7 @@
       "The label is {result}."
       ]
       },
-    "backward_recordLabel": {
+  "backward_recordLabel": {
       "keywords": [
         "label",
         "record",
@@ -309,6 +458,24 @@
         "band"
         ],
         "query_type": "backward",
+        "predicates": ["http://dbpedia.org/ontology/recordLabel",
+          "http://dbpedia.org/property/recordLabel"],
+        "answer_templates": [
+        "The record label is called {result}.",
+        "The label is {result}."
+        ]
+    },
+  "boolean_recordLabel": {
+      "keywords": [
+        "label",
+        "record",
+        "signed",
+        "artist",
+        "music",
+        "artists",
+        "band"
+        ],
+        "query_type": "boolean",
         "predicates": ["http://dbpedia.org/ontology/recordLabel",
           "http://dbpedia.org/property/recordLabel"],
         "answer_templates": [
@@ -341,7 +508,20 @@
       "answer_templates": [
       "Try to read {result}."
       ]
-      },
+    },
+  "boolean_literaryGenre": {
+      "keywords": [
+        "genre",
+        "book",
+        "novel"
+        ],
+        "query_type": "boolean",
+        "predicates": ["http://dbpedia.org/ontology/literaryGenre",
+          "http://dbpedia.org/property/literaryGenre"],
+        "answer_templates": [
+        "Try to read {result}."
+        ]
+    },
   "backward_type": {
     "keywords": [
       "type",
@@ -367,7 +547,20 @@
       "answer_templates": [
       "The type is {result}."
       ]
-      },
+  },
+  "boolean_type": {
+    "keywords": [
+      "type",
+      "kind",
+      "structure"
+      ],
+      "query_type": "boolean",
+      "predicates": ["http://dbpedia.org/ontology/type",
+        "http://dbpedia.org/property/type"],
+      "answer_templates": [
+      "The type is {result}."
+      ]
+  },
   "backward_director": {
     "keywords": [
       "director",
@@ -411,7 +604,29 @@
       "The director is {result}.",
       "The director's name is {result}."
       ]
-      },
+    },
+  "boolean_director": {
+    "keywords": [
+      "director",
+      "direct",
+      "film",
+      "directed",
+      "movie",
+      "TV-show",
+      "TV",
+      "films",
+      "movies"
+      ],
+      "query_type": "forward",
+      "predicates": ["http://dbpedia.org/ontology/director",
+        "http://dbpedia.org/ontology/cinematography", 
+        "http://dbpedia.org/property/director",
+        "http://dbpedia.org/property/cinematography"],
+      "answer_templates": [
+      "The director is {result}.",
+      "The director's name is {result}."
+      ]
+    },
   "forward_hometown": {
     "keywords": [
       "hometown",
@@ -427,7 +642,7 @@
       "The hometown of {original} is called {result}."
       ]
    },
-   "backward_hometown": {
+  "backward_hometown": {
     "keywords": [
       "hometown",
       "born in the city",
@@ -435,6 +650,21 @@
       "grow up"
       ],
       "query_type": "backward",
+      "predicates": ["http://dbpedia.org/ontology/hometown",
+        "http://dbpedia.org/property/hometown"],
+      "answer_templates": [
+      "The hometown of {result} is {original}.",
+      "The hometown of {original} is called {result}."
+      ]
+   },
+  "boolean_hometown": {
+    "keywords": [
+      "hometown",
+      "born in the city",
+      "born in",
+      "grow up"
+      ],
+      "query_type": "boolean",
       "predicates": ["http://dbpedia.org/ontology/hometown",
         "http://dbpedia.org/property/hometown"],
       "answer_templates": [
@@ -461,7 +691,26 @@
       "The author of {original} is {result}."
       ]
     },
-    "forward_author": {
+  "boolean_author": {
+    "keywords": [
+      "author",
+      "creator of",
+      "writer",
+      "writer of",
+      "write"
+      ],
+      "query_type": "boolean",
+      "predicates": ["http://dbpedia.org/ontology/author",
+        "http://dbpedia.org/property/author",
+        "http://dbpedia.org/ontology/composer",
+        "http://dbpedia.org/property/composer",
+        "http://dbpedia.org/ontology/writer",
+        "http://dbpedia.org/property/writer"],
+      "answer_templates": [
+      "The author of {original} is {result}."
+      ]
+    },
+  "forward_author": {
     "keywords": [
       "author",
       "creator of",
@@ -479,7 +728,7 @@
       "answer_templates": [
       "The author of {original} is {result}."
       ]
-      },
+    },
   "forward_language": {
     "keywords": [
     "language",
@@ -499,8 +748,8 @@
     "This is {result}.",
     "That's going to be {result}."
     ]
-    },
-    "backward_language": {
+  },
+  "backward_language": {
       "keywords": [
       "language",
       "language of",
@@ -517,7 +766,25 @@
       "answer_templates": [
       "The language of {original} is {result}."
       ]
-    },
+  },
+  "boolean_language": {
+    "keywords": [
+    "language",
+    "language of",
+    "language spoken",
+    "speak",
+    "speak this",
+    "speak this language",
+    "written language",
+    "language of this work"
+    ],
+    "query_type": "boolean",
+    "predicates": ["http://dbpedia.org/ontology/language",
+      "http://dbpedia.org/property/language"],
+    "answer_templates": [
+    "The language of {original} is {result}."
+    ]
+  },
   "backward_producer": {
     "keywords": [
     "producer of",
@@ -532,7 +799,7 @@
     "It was {result} who produced this.",
     "The name of this producer is {result}."
     ]
-    },
+  },
   "forward_producer": {
     "keywords": [
     "producer of",
@@ -548,7 +815,22 @@
     "The {original} has been produced by {result}."
     ]
   },
-    "forward_deathCause": {
+  "boolean_producer": {
+    "keywords": [
+    "producer of",
+    "produced the",
+    "produced",
+    "been producing"
+    ],
+    "query_type": "forward",
+    "predicates": ["http://dbpedia.org/ontology/producer",
+      "http://dbpedia.org/property/producer"],
+    "answer_templates": [
+    "{result} ",
+    "The {original} has been produced by {result}."
+    ]
+  },
+  "forward_deathCause": {
       "query_type": "forward",
       "predicates": ["http://dbpedia.org/ontology/deathCause",
         "http://dbpedia.org/property/deathCause"],

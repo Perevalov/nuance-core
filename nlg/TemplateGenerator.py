@@ -48,13 +48,12 @@ def generate_answer(intents_dict, intent, sparql_result, annotation_dict):
             return template, uri
 
     elif "boolean" in sparql_result.keys():
-        if intent == "was_born":
-            res = sparql_result["boolean"]
-            if res:
-                template = "Yes, it is true."
-            else:
-                template = "No, that is false"
-            return template, "http://example.come/None"
+        res = sparql_result["boolean"]
+        if res:
+            template = "Yes, it is true."
+        else:
+            template = "No, that is false"
+        return template, "http://example.come/None"
 
     else:
         return "Sorry, there is not enough information in my database", "http://example.come/None"
