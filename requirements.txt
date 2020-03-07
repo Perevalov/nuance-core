@@ -8,3 +8,4 @@ requests==2.20.1
 spacy==2.1.3
 SPARQLWrapper==1.8.5
 sklearn
+overpy

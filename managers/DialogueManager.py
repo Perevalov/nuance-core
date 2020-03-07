@@ -2,13 +2,14 @@ import numpy as np
 from nlu.ner import DBPediaSpotlightNER as ner
 from dblayer import SPARQLWorker as sparql
 from nlg import TemplateGenerator
-from nlu.classifiers.Classifier import tell_me_more_classifier
+from nlu.classifiers.Classifier import tell_me_more_classifier, what_i_see_classifier
 from SPARQL.sparql_builder import SPARQLBuilder
 from resources.constants import *
 from resources.utils import preprocess_text, map_template_and_relation_to_intent, find_best_string_match
 from nlu.ner import coreference_resolver as coref
 from dblayer.sql_worker import *
 import ast
+import overpy
 
 
 class DialogueManager:
@@ -30,6 +31,7 @@ class DialogueManager:
         self.sparql_templates = sparql_templates
         self.builder = SPARQLBuilder(self.sparql_templates)
         self.sql_worker = SQLWorker()
+        self.geo_api = overpy.Overpass()
 
     def validate_question(self, q_class: str, annotation_dict):
         """
@@ -38,6 +40,9 @@ class DialogueManager:
         :param annotation_dict:
         :return:
         """
+
+        if q_class == WHAT_I_SEE_INTENT:
+            return True
 
         query_type = self.intents[q_class][QUERY_TYPE]
 
@@ -94,9 +99,15 @@ class DialogueManager:
 
         # Predict template
         is_tell_me_more = tell_me_more_classifier(preprocessed_text)
+        is_what_i_see = what_i_see_classifier(preprocessed_text)
 
-        if is_tell_me_more:
-            template_prediction = TELL_ME_MORE_TEMPLATE
+        #if one of rule based intents is true (or both)
+        if is_tell_me_more or is_what_i_see:
+            #priority to tell me more
+            if is_tell_me_more:
+                template_prediction = TELL_ME_MORE_TEMPLATE
+            else:
+                template_prediction = WHAT_I_SEE_TEMPLATE
             is_confident = True
         else:
             template_prediction, is_confident = self.template_classifier.predict(preprocessed_text)
@@ -105,7 +116,7 @@ class DialogueManager:
                 template_prediction, is_confident = self.fwd_bwd_classifier.predict(preprocessed_text)
 
         # Predict relation
-        if template_prediction != 'distance' and template_prediction != TELL_ME_MORE_TEMPLATE:
+        if template_prediction != 'distance' and template_prediction != TELL_ME_MORE_TEMPLATE and template_prediction != WHAT_I_SEE_TEMPLATE:
             relation_prediction, is_confident = self.relation_classifier.predict(preprocessed_text)
 
             intent = map_template_and_relation_to_intent(template_prediction, relation_prediction, self.intents)
@@ -119,6 +130,17 @@ class DialogueManager:
 
             if not is_confident:
                 intent = self.keyword_classifier.predict(preprocessed_text)
+        elif template_prediction == WHAT_I_SEE_TEMPLATE:
+            lat = 51.74609
+            lon = 11.981306
+            rad = 100
+
+            annotation_dict = self.geo_api.query("""
+                [out:json];
+                 node(around:{rad},{lat},{lon});
+                out;
+                """.format(rad=rad, lat=lat, lon=lon))
+            intent = WHAT_I_SEE_INTENT
         else:
             intent = 'distance'
 
@@ -128,11 +150,12 @@ class DialogueManager:
         has_coref = coref.has_coref(preprocessed_text)
 
         preprocessed_text = preprocess_text(question_text)
-        annotation_dict = ner.annotate_text({"text": preprocessed_text, "confidence": 0.3})
+        if not is_what_i_see:
+            annotation_dict = ner.annotate_text({"text": preprocessed_text, "confidence": 0.3})
 
         message_id = self.sql_worker.create_message(dialogue_id, preprocessed_text, QUESTION_TYPE, str(annotation_dict))
 
-        if has_coref:
+        if is_tell_me_more and has_coref:
             last_question = self.sql_worker.get_last_question(dialogue_id)
 
             if last_question:
@@ -155,16 +178,19 @@ class DialogueManager:
                     else:
                         annotation_dict = answer['uri']
 
-        print("Relation {0}".format(relation_prediction))
-        print("Template {0}".format(template_prediction))
-        print("Intent {0}".format(intent))
-        print("Annotation {0}".format(annotation_dict.keys()))
+        #print("Relation {0}".format(relation_prediction))
+        #print("Template {0}".format(template_prediction))
+        #print("Intent {0}".format(intent))
+        #print("Annotation {0}".format(annotation_dict.keys()))
         
         # TODO: annotation_dict = prev_annot
         if self.validate_question(intent, annotation_dict):
-            query = self.get_sparql(intent, list(annotation_dict.keys()))
-            print("[SPARQL Query]: {0}".format(query))
-            result = sparql.execute_query({"query": query})
+            result = None
+            if not is_what_i_see:
+                query = self.get_sparql(intent, list(annotation_dict.keys()))
+                print("[SPARQL Query]: {0}".format(query))
+                result = sparql.execute_query({"query": query})
+
             text_response, uri = TemplateGenerator.generate_answer(self.intents, intent, result, annotation_dict)
 
             # insert answer and update corresponding message
