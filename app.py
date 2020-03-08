@@ -53,21 +53,24 @@ def get_answer():
     if not session_id:
         session_id = str(uuid.uuid4())
 
-    question_text = request.args.get("user_text")
+    try:
+        question_text = request.args.get("user_text")
 
-    latitude = request.args.get("latitude")
-    longitude = request.args.get("longitude")
+        latitude = request.args.get("latitude")
+        longitude = request.args.get("longitude")
 
-    #TODO error message for when user_text is not a proper string
-    print("Original question text: {0}".format(question_text))
+        #TODO error message for when user_text is not a proper string
+        print("Original question text: {0}".format(question_text))
 
-    answer_text = dialogue_manager.get_answer(question_text, session_id, latitude, longitude)
-    print("Answer text is: {0}".format(answer_text))
+        answer_text = dialogue_manager.get_answer(question_text, session_id, latitude, longitude)
+        print("Answer text is: {0}".format(answer_text))
 
 
-    print("[/get_answer] Ended")
+        print("[/get_answer] Ended")
 
-    return json.dumps({"system_text": answer_text, "session_id": session_id})
+        return json.dumps({"system_text": answer_text, "session_id": session_id})
+    except:
+        return json.dumps({"system_text": "Sorry, we have got an error :(", "session_id": session_id})
 
 
 @app.route("/get_answer_qanary", methods=['GET'])
@@ -77,50 +80,53 @@ def get_answer_qanary():
     if not session_id:
         session_id = str(uuid.uuid4())
 
-    question_text = request.args.get("user_text")
+    try:
+        question_text = request.args.get("user_text")
 
-    response = requests.post(url="http://localhost:8080/startquestionansweringwithtextquestion",
-                            params={
-                                # TODO: this is temporary solution
-                                "question": question_text+"$"+session_id,
-                                "componentlist[]": ["template_classifier",
-                                                    "relation_classifier",
-                                                    "dbpedia_spotlight_annotator",
-                                                    "coreference_resolver",
-                                                    "question_validator",
-                                                    "sparql_builder",
-                                                    "dbpedia_sparql_worker",
-                                                    "template_generator"]
-                            }).json()
+        response = requests.post(url="http://localhost:8080/startquestionansweringwithtextquestion",
+                                params={
+                                    # TODO: this is temporary solution
+                                    "question": question_text+"$"+session_id,
+                                    "componentlist[]": ["template_classifier",
+                                                        "relation_classifier",
+                                                        "dbpedia_spotlight_annotator",
+                                                        "coreference_resolver",
+                                                        "question_validator",
+                                                        "sparql_builder",
+                                                        "dbpedia_sparql_worker",
+                                                        "template_generator"]
+                                }).json()
 
-    endpoint = response['endpoint']
-    in_graph = response['inGraph']
+        endpoint = response['endpoint']
+        in_graph = response['inGraph']
 
-    template_generator_endpoint = "http://127.0.0.1:5007/text_answer"
+        template_generator_endpoint = "http://127.0.0.1:5007/text_answer"
 
-    response = requests.get(url=template_generator_endpoint,
-                            params={
-                                'endpoint': endpoint,
-                                'inGraph': in_graph
-                            }).json()
+        response = requests.get(url=template_generator_endpoint,
+                                params={
+                                    'endpoint': endpoint,
+                                    'inGraph': in_graph
+                                }).json()
 
-    answer_text = response['answer']
+        answer_text = response['answer']
 
-    #Save session_id, question and answer text to tripletstore
-    SPARQLquery = """
-               PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+        #Save session_id, question and answer text to tripletstore
+        SPARQLquery = """
+                PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
 
-               INSERT DATA 
-               {{ 
-                   <urn:cqa:dialogue:{session_id}> oa:hasQuestion <{graph_guid}> .
-                   <urn:cqa:dialogue:{session_id}> oa:hasTimeAnswered "{current_time}"^^xsd:dateTime
-               }}
-           """.format(session_id=session_id, graph_guid=in_graph, current_time=strftime("%Y-%m-%dT%H:%M:%S", gmtime()))
+                INSERT DATA 
+                {{ 
+                    <urn:cqa:dialogue:{session_id}> oa:hasQuestion <{graph_guid}> .
+                    <urn:cqa:dialogue:{session_id}> oa:hasTimeAnswered "{current_time}"^^xsd:dateTime
+                }}
+            """.format(session_id=session_id, graph_guid=in_graph, current_time=strftime("%Y-%m-%dT%H:%M:%S", gmtime()))
 
-    insert_into_triplestore(endpoint, in_graph, SPARQLquery)
+        insert_into_triplestore(endpoint, in_graph, SPARQLquery)
 
 
-    return json.dumps({"system_text": answer_text, "session_id": session_id, "in_graph": in_graph})
+        return json.dumps({"system_text": answer_text, "session_id": session_id, "in_graph": in_graph})
+    except:
+        return json.dumps({"system_text": "Sorry, we have got an error :(", "session_id": session_id})
 
 if __name__ == "__main__":
     app.run(debug=True, host='127.0.0.1', port=5050)
