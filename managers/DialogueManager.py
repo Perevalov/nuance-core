@@ -69,7 +69,7 @@ class DialogueManager:
 
         return query
 
-    def get_answer(self, question_text, dialogue_id):
+    def get_answer(self, question_text, dialogue_id, latitude, longitude):
         """
 
         :param question_text:
@@ -131,15 +131,17 @@ class DialogueManager:
             if not is_confident:
                 intent = self.keyword_classifier.predict(preprocessed_text)
         elif template_prediction == WHAT_I_SEE_TEMPLATE:
-            lat = 51.74609
-            lon = 11.981306
-            rad = 100
+            if not latitude and not longitude:
+                #latitude, longitude = 51.74609, 11.981306
+                return "Sorry, you didn't specify the coordinates"
+
+            rad = 50
 
             annotation_dict = self.geo_api.query("""
                 [out:json];
                  node(around:{rad},{lat},{lon});
                 out;
-                """.format(rad=rad, lat=lat, lon=lon))
+                """.format(rad=rad, lat=latitude, lon=longitude))
             intent = WHAT_I_SEE_INTENT
         else:
             intent = 'distance'

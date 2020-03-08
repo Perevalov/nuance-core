@@ -55,10 +55,13 @@ def get_answer():
 
     question_text = request.args.get("user_text")
 
+    latitude = request.args.get("latitude")
+    longitude = request.args.get("longitude")
+
     #TODO error message for when user_text is not a proper string
     print("Original question text: {0}".format(question_text))
 
-    answer_text = dialogue_manager.get_answer(question_text, session_id)
+    answer_text = dialogue_manager.get_answer(question_text, session_id, latitude, longitude)
     print("Answer text is: {0}".format(answer_text))
 
 

@@ -28,7 +28,8 @@ def what_i_see_classifier(question_text):
                     "what is this building",
                     "what is around me",
                     "what is this in front of me",
-                   "what is this"]
+                   "what is this",
+                   "what i see"]
 
     for phrase in key_phrases:
         if fuzz.ratio(phrase, question_text.lower()) > 80:
