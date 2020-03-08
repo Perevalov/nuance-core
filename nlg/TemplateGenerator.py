@@ -1,6 +1,6 @@
 import random
 import string
-from resources.constants import TEMPLATES, TELL_ME_MORE_TEMPLATE
+from resources.constants import TEMPLATES, TELL_ME_MORE_TEMPLATE, WHAT_I_SEE_INTENT
 
 
 def generate_answer(intents_dict, intent, sparql_result, annotation_dict):
@@ -14,6 +14,22 @@ def generate_answer(intents_dict, intent, sparql_result, annotation_dict):
     :param annotation_dict:
     :return:
     """
+    if intent == WHAT_I_SEE_INTENT:
+        names = list()
+
+        for node in annotation_dict.nodes:
+            if "name" in node.tags.keys():
+                names.append(node.tags["name"])
+
+        if len(names) > 1:
+            answer = "There are " + ', '.join(name for name in names) + " around you."
+        elif len(names) == 1:
+            answer = "There is " + ', '.join(name for name in names) + " around you."
+        else:
+            answer = "I don't see anything around you, sorry"
+
+        return answer, "http://example.come/None"
+
     if "results" in sparql_result.keys() and len(list(sparql_result["results"]["bindings"])) > 0:
         if intent == "distance":
             dist = sparql_result["results"]["bindings"][0]["distanceBetweenCities"]["value"]

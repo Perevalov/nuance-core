@@ -25,6 +25,9 @@ BOOL_TEMPLATE = "boolean"
 DISTANCE_TEMPLATE = "distance"
 FWD_BWD_TEMPLATE = "forward backward"
 TELL_ME_MORE_TEMPLATE = "abstract"
+WHAT_I_SEE_TEMPLATE = "what_i_see"
+
+WHAT_I_SEE_INTENT = "what_i_see"
 
 # For SQL database
 QUESTION_TYPE = 0
