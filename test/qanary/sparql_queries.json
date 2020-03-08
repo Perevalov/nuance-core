@@ -1,0 +1,11 @@
+{
+  "query_header" : "PREFIX oa: <http://www.w3.org/ns/openannotation/core/> ASK FROM <{graph_urn}> ",
+
+  "template_classifier": "WHERE {{ ?annotation oa:templateType oa:templateType:{template_type} . ?annotation oa:isTemplateClassifierConfident oa:boolean:{is_confident} }}",
+  "relation_classifier": "WHERE {{  ?annotation oa:relation <{relation}> . ?annotation oa:intent oa:intent:{intent} }}",
+  "dbpedia_spotlight": "WHERE {{ ?annotation oa:spotlightAnnotation ?DBPediaAnnotation . FILTER(CONTAINS(?DBPediaAnnotation ,\"{dbpedia_urn}\")) }}",
+  "question_validator": "WHERE {{ ?annotation oa:isQuestionValidated oa:boolean:{is_validated} }}",
+  "sparql_builder": "WHERE {{ ?annotation oa:sparqlQuery ?query . FILTER(CONTAINS(?query ,\"SELECT\")) }}",
+  "sparql_executor": "WHERE {{ ?annotation oa:sparqlResult ?result . FILTER(CONTAINS(?result ,\"bindings\")) }}",
+  "template_generator": "WHERE {{ ?annotation oa:textResponse ?response }}"
+}

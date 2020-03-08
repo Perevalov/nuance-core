@@ -1,0 +1,409 @@
+class;question
+RES;List all boardgames by GMT.
+RES;Who developed Skype?
+RES;Which people were born in Heraklion?
+RES;In which U.S. state is Area 51 located?
+RES;Who is the mayor of New York City?
+RES;Which countries have places with more than two caves?
+RES;Where did Abraham Lincoln die?
+RES;Which airports does Air China serve?
+RES;Give me all actors starring in movies directed by and starring William Shatner.
+RES;What are the official languages of the Philippines?
+RES;Give me all Danish films.
+RES;Which movies starring Brad Pitt were directed by Guy Ritchie?
+NUM;Give me the grandchildren of Bruce Lee.
+RES;Which other weapons did the designer of the Uzi develop?
+RES;Who is the owner of Universal Studios?
+RES;Which state of the USA has the highest population density?
+RES;Which monarchs were married to a German?
+RES;Which organizations were founded in 1950?
+RES;Who created the comic Captain America?
+RES;Give me the Apollo 14 astronauts.
+RES;Who wrote the book The pillars of the Earth?
+RES;Which state of the United States of America has the highest density?
+RES;Which spaceflights were launched from Baikonur?
+RES;Give me a list of all trumpet players that were bandleaders.
+RES;Which U.S. states are in the same timezone as Utah?
+RES;Which U.S. states possess gold minerals?
+RES;Who is the daughter of Ingrid Bergman married to?
+NUM;How deep is Lake Placid?
+RES;Show me all museums in London.
+RES;Which caves have more than 3 entrances?
+RES;Who is the tallest player of the Atlanta Falcons?
+RES;What are the top-10 action role-playing video games according to IGN?
+RES;Give me all writers that won the Nobel Prize in literature.
+RES;Show me all basketball players that are higher than 2 meters.
+NUM;When was the Statue of Liberty built?
+RES;Which states border Illinois?
+RES;Who developed Minecraft?
+RES;Where did Hillel Slovak die?
+RES;What movies does Jesse Eisenberg play in?
+RES;Give all swimmers that were born in Moscow.
+RES;Give me all cosmonauts.
+RES;Give me all Swiss non-profit organizations.
+RES;Which presidents were born in 1945?
+RES;What kind of music did Lou Reed play?
+RES;Where do the Red Sox play?
+RES;Show a list of soccer clubs that play in the Bundesliga.
+RES;Which volcanos in Japan erupted since 2000?
+RES;Which bridges cross the Seine?
+RES;What is the official color of the University of Oxford?
+NUM;How many films did Hal Roach produce?
+RES;Give me all Danish movies.
+RES;What is the most frequent cause of death?
+RES;Who are the four youngest MVP basketball players?
+RES;Give me all companies in Munich.
+RES;Give me the capitals of all countries that the Himalayas run through.
+NUM;How many movies did Park Chan-wook direct?
+RES;Which rivers flow into a German lake?
+NUM;How many airlines are there?
+RES;Give me all islands that belong to Japan.
+NUM;How many inhabitants does Maribor have?
+RES;Give me all Apollo 14 astronauts.
+RES;Which companies have more than 1 million employees?
+RES;In which films directed by Garry Marshall was Julia Roberts starring?
+RES;Give me all soccer clubs in the Premier League.
+RES;What is the highest place of the Urals?
+RES;Who is the governor of Wyoming?
+RES;Where did the architect of the Eiffel Tower study?
+RES;Give me all world heritage sites designated within the past two years.
+RES;Give me all actors who were born in Paris after 1950.
+RES;Which movies star both Liz Taylor and Richard Burton?
+RES;Give me all Australian nonprofit organizations.
+RES;Which pope succeeded John Paul II?
+RES;Give me all ESA astronauts.
+RES;Who was president of Pakistan in 1978?
+RES;Who is the owner of Rolls-Royce?
+RES;How many museums does Paris have?
+RES;Where was JFK assassinated?
+RES;Give me all federal chancellors of Germany.
+RES;Show me everyone who was born on Halloween.
+RES;Which beer originated in Ireland?
+RES;To which countries does the Himalayan mountain system extend?
+RES;Which actors were born in Germany?
+NUM;How much carbs does peanut butter have?
+RES;Who produced the most films?
+NUM;How many employees does Google have?
+RES;Give me all actors who were born in Berlin.
+RES;Who created Goofy?
+RES;Which music albums contain the song Last Christmas?
+NUM;When was Alberta admitted as province?
+NUM;How many missions does the Soyuz programme have?
+RES;Give me all the TV shows with Neil Patrick Harris.
+NUM;When were the Hells Angels founded?
+NUM;What is the net income of Apple?
+RES;Give me all Swedish holidays.
+RES;In which city was the former Dutch queen Juliana buried?
+RES;List all the musicals with music by Leonard Bernstein.
+NUM;Give me all companies in the advertising industry.
+RES;What is the largest metropolitan area in Washington state?
+RES;Who killed John Lennon?
+RES;Which writers studied in Istanbul?
+RES;Give me all Australian metalcore bands.
+RES;Which countries adopted the Euro?
+RES;Give me all types of eating disorders.
+BOOL;Was Marc Chagall a jew?
+NUM;What was Brazil's lowest rank in the FIFA World Ranking?
+NUM;How many films did Leonardo DiCaprio star in?
+BOOL;Was Margaret Thatcher a chemist?
+RES;Which U.S. states are in the same time zone as Utah?
+RES;Give me all books written by Danielle Steel.
+RES;Which country has the most official languages?
+NUM;What is the total amount of men and women serving in the FDNY?
+RES;Which actor played Chewbacca?
+RES;Give me all libraries established earlier than 1400.
+RES;Which programming languages were influenced by Perl?
+RES;In which U.S. state is Mount McKinley located?
+RES;What airlines are part of the SkyTeam alliance?
+RES;Which ships were called after Benjamin Franklin?
+RES;Give me all Methodist politicians.
+RES;What other books have been written by the author of The Fault in Our Stars?
+RES;What is the highest mountain?
+RES;Which poet wrote the most books?
+RES;Which programming languages influenced Javascript?
+RES;Which musician wrote the most books?
+RES;Which films starring Clint Eastwood did he direct himself?
+RES;Which software has been developed by organizations founded in California?
+RES;Which instruments does Cat Stevens play?
+NUM;How many airlines are members of the Star Alliance?
+RES;Give me all actors called Baldwin.
+RES;Who wrote The Hunger Games?
+RES;For which label did Elvis record his first album?
+BOOL;Is Christian Bale starring in Batman Begins?
+RES;Where is the residence of the prime minister of Spain?
+RES;Which actor was casted in the most movies?
+RES;Which countries have more than two official languages?
+RES;Which countries have more than ten caves?
+RES;Show me all songs from Bruce Springsteen released between 1980 and 1990.
+RES;Which television shows were created by John Cleese?
+NUM;When did Latvia join the EU?
+RES;Which soccer players were born on Malta?
+NUM;How many politicians graduated from Columbia University?
+NUM;Give me the birthdays of all actors of the television show Charmed.
+NUM;Which telecommunications organizations are located in Belgium?
+RES;Give me a list of all lakes in Denmark.
+NUM;How many children does Eddie Murphy have?
+RES;Show me all English Gothic buildings in Kent.
+RES;Who is the manager of Real Madrid?
+RES;In which countries can you pay using the West African CFA franc?
+RES;Which holidays are celebrated around the world?
+RES;What is the longest river?
+RES;Which organizations were founded in 1930?
+RES;What is the birth name of Angela Merkel?
+RES;Who has Tom Cruise been married to?
+RES;Which weapons did Heckler & Koch develop?
+RES;What is the smallest city by area in Germany?
+RES;What is the ruling party in Lisbon?
+NUM;How heavy is Jupiter's lightest moon?
+NUM;How many employees does IBM have?
+RES;List all episodes of the first season of the HBO television series The Sopranos!
+RES;What does ICRO stand for?
+BOOL;Does the new Battlestar Galactica series have more episodes than the old one?
+RES;Give me all films produced by Hal Roach.
+RES;Who played Agent Smith in Matrix?
+RES;Which Greek parties are pro-European?
+RES;Give me a list of all bandleaders that play trumpet.
+RES;What is the second highest mountain on Earth?
+BOOL;Is Egypts largest city also its capital?
+RES;Which rockets were launched from Baikonur?
+NUM;How many programming languages are there?
+RES;Which Chess players died in the same place they were born in?
+RES;Who is the owner of Facebook?
+RES;Give me all movies with Tom Cruise.
+RES;In which U.S. state is Fort Knox located?
+RES;Give me all cities in New Jersey with more than 100000 inhabitants.
+RES;Which mountains are higher than the Nanga Parbat?
+RES;Give me all B-sides of the Ramones.
+RES;What are the specialities of the UNC Health Care?
+NUM;When was Olof Palme shot?
+RES;List the seven kings of Rome.
+RES;Give me all people that were born in Vienna and died in Berlin.
+BOOL;Is Darth Vader Luke’s father?
+RES;Show me all the breweries in Australia.
+RES;Give me all films produced by Steven Spielberg with a budget of at least $80 million.
+RES;Give me all soccer clubs in Spain.
+RES;Who produced films starring Natalie Portman?
+RES;Give me all breeds of the German Shepherd dog.
+RES;Who is the heaviest player of the Chicago Bulls?
+RES;Which languages are spoken in Estonia?
+RES;What is the largest country in the world?
+RES;What is the largest city in america?
+RES;Who was the pope that founded the Vatican Television?
+RES;Who discovered Ceres?
+RES;Who is the king of the Netherlands?
+BOOL;Is Cola a beverage?
+RES;What is the alma mater of the chancellor of Germany Angela Merkel?
+RES;Who wrote the book Les Piliers de la terre?
+RES;Which airports does Yeti Airlines serve?
+RES;Where is the birthplace of Goethe?
+BOOL;Was the Cuban Missile Crisis earlier than the Bay of Pigs Invasion?
+RES;Which ingredients do I need for carrot cake?
+RES;Who created Wikipedia?
+RES;What is the highest mountain in Saxony Germany?
+RES;Who is the current federal minister of finance in Germany?
+RES;In which country is Mecca located?
+RES;Who played Gus Fring in Breaking Bad?
+RES;In which country does the Nile start?
+RES;In which state Penn State University is located?
+RES;What is the biggest stadium in Spain?
+RES;Who is the coach of Ankara's ice hockey team?
+NUM;How large is the area of UK?
+RES;Who created Batman?
+BOOL;Was Sigmund Freud married?
+RES;Who are the developers of DBpedia?
+RES;Give me all movies directed by Francis Ford Coppola.
+BOOL;Are tree frogs a type of amphibian?
+RES;What is the location of the Houses of Parliament?
+NUM;how much is the elevation of Düsseldorf Airport ?
+NUM;How much is the population of mexico city ?
+NUM;when was the founding date of french fifth republic?
+RES;Who was the first King of England?
+RES;Who is the editor of Forbes?
+RES;Which awards did Douglas Hofstadter win?
+RES;Who is the youngest Darts player?
+BOOL;Is horse racing a sport?
+RES;Which river does the Brooklyn Bridge cross?
+NUM;How many people live in Poland?
+NUM;When was the last episode of the TV series Friends aired?
+BOOL;Is the wife of president Obama called Michelle?
+RES;Who is 8th president of US?
+NUM;how much is the total population of  european union?
+RES;Give me all launch pads operated by NASA.
+RES;Who developed the video game World of Warcraft?
+RES;What is the birth name of Adele?
+NUM;What is the population of Cairo?
+BOOL;Is Frank Herbert still alive?
+RES;What is the last work of Dan Brown?
+RES;Where is Sungkyunkwan University?
+RES;Who is the author of the interpretation of dreams?
+NUM;When was the death  of  Shakespeare?
+RES;Who developed Slack?
+RES;Where is the origin of Carolina reaper?
+NUM;In which year was Rachel Stevens born?
+NUM;How often did Jane Fonda marry?
+BOOL;Was the wife of president Lincoln called Mary?
+RES;Which cities does the Weser flow through?
+RES;In which programming language is GIMP written?
+RES;Which university did Angela Merkel attend?
+RES;List all the musicals with music by Elton John.
+NUM;How many Aldi stores are there?
+RES;What is the longest river in the world?
+NUM;When was John Adams born?
+RES;Which companies produce hovercrafts?
+RES;Who was the wife of U.S. president Lincoln?
+RES;Which species does an elephant belong?
+NUM;How many people live in the capital of Australia?
+RES;In which ancient empire could you pay with cocoa beans?
+NUM;How many theories did Albert Einstein come up with?
+RES;Who composed the soundtrack for Cameron's Titanic?
+NUM;Give me the runtime of Toy Story.
+RES;With how many countries Iran has borders?
+RES;Which electronics companies were founded in Beijing?
+RES;Who was the successor of John F. Kennedy?
+RES;Who is the mayor of Paris?
+BOOL;Did Arnold Schwarzenegger attend a university?
+BOOL;Is James Bond married?
+BOOL;Does the Isar flow into a lake?
+RES;Which Indian company has the most employees?
+RES;Who was John F. Kennedy's vice president?
+RES;Which country does the creator of Miffy come from?
+RES;In what city is the Heineken brewery?
+BOOL;Is Barack Obama a democrat?
+RES;List the children of Margaret Thatcher.
+RES;From which region is the Melon de Bourgogne?
+NUM;how big is the total area of North Rhine- Westphalia?
+RES;Which city has the most inhabitants?
+RES;What is Donald Trump's main business?
+NUM;When will start the final match of the football world cup 2018?
+RES;Which films did Stanley Kubrick direct?
+NUM;how much is the population  Iraq?
+NUM;How many inhabitants does the largest city in Canada have?
+RES;Who is the mayor of the capital of French Polynesia?
+RES;Give me all actors starring in movies directed by William Shatner.
+NUM;How tall is Claudia Schiffer?
+NUM;how much is the population densty rank of germany?
+RES;What is the highest mountain in Italy?
+RES;List all games by GMT.
+RES;What is the official language of Suriname?
+RES;In which city did Nikos Kazantzakis die?
+RES;What is in a chocolate chip cookie?
+RES;In which country is the Limerick Lake?
+RES;Give me all video games published by Mean Hamster Software.
+RES;Give me all members of Prodigy.
+RES;In which time zone is Rome?
+NUM;How high is the lighthouse in Colombo?
+RES;Who are the writers of the Wall album of Pink Floyd?
+RES;Who is the mayor of Rotterdam?
+RES;What is the largest city in Australia?
+RES;Who was married to president Chirac?
+RES;What form of government is found in South Africa?
+NUM;How high is the Yokohama Marine Tower?
+RES;Which holidays are celebrated around the world? test2
+RES;Who is the tallest basketball player?
+NUM;How many languages are spoken in Turkmenistan?
+BOOL;Did Che Guevara have children?
+BOOL;Did Kaurismäki ever win the Grand Prix at Cannes?
+RES;To which party does the mayor of Paris belong?
+RES;Who is the Formula 1 race driver with the most races?
+RES;What country is Sitecore from?
+RES;Give me the birth place of Frank Sinatra.
+BOOL;Is Christian Bale starring in Velvet Goldmine?
+RES;Who is the son of Sonny and Cher?
+NUM;How many ethnic groups live in Slovenia?
+RES;What is the capital of Cameroon?
+BOOL;Was Natalie Portman born in the United States?
+NUM;How many pages does War and Peace have?
+RES;Who is the oldest child of Meryl Streep?
+RES;Which television shows were created by Walt Disney?
+RES;What does IYCM stand for?
+RES;Which types of grapes grow in Oregon?
+BOOL;Was U.S. president Jackson involved in a war?
+NUM;When was the Titanic completed?
+BOOL;Did Tesla win a nobel prize in physics?
+NUM;How many states are in Mexico?
+RES;Which scientist is known for the Manhattan Project and the Nobel Peace Prize?
+NUM;How much did the Lego Movie cost?
+RES;Who composed the music for Harold and Maude?
+RES;List all episodes of the first season of the HBO television series The Sopranos.
+RES;Which city has the least inhabitants?
+RES;Where is Syngman Rhee buried?
+BOOL;Does Neymar play for Real Madrid?
+RES;Who wrote the book The Pillars of the Earth?
+BOOL;Do Prince Harry and Prince William have the same parents?
+RES;Who was the doctoral supervisor of Albert Einstein?
+BOOL;Does Breaking Bad have more episodes than Game of Thrones?
+RES;Who was Vincent van Gogh inspired by?
+RES;Which building after the Burj Khalifa has the most floors?
+RES;What was the final result of the War of the Roses?
+NUM;How much did Pulp Fiction cost?
+BOOL;Is proinsulin a protein?
+BOOL;Do Urdu and Persian have a common root?
+RES;Who is starring in Spanish movies produced by Benicio del Toro?
+BOOL;Is Lake Baikal bigger than the Great Bear Lake?
+RES;Show me all books in Asimov's Foundation series.
+RES;Where was Bach born?
+RES;Which city has the oldest running metro?
+RES;Who designed the Brooklyn Bridge?
+NUM;How many people live in Eurasia?
+RES;Who is the host of the BBC Wildlife Specials?
+NUM;What is the total population of Melbourne, Florida?
+RES;What country is Mount Everest in?
+RES;To which artistic movement did the painter of The Three Dancers belong?
+NUM;When did Operation Overlord commence?
+RES;What is the bridge with the longest span?
+BOOL;Is there a video game called Battle Chess?
+RES;Who was buried in the Great Pyramid of Giza?
+BOOL;Does the Ford Motor Company have a manufacturing plant in Malaysia?
+BOOL;Did Socrates influence Aristotle?
+NUM;How many children did Benjamin Franklin have?
+NUM;How tall is Michael Jordan?
+RES;In which UK city are the headquarters of the MI6?
+RES;Who created Family Guy?
+RES;In which city does the Chile Route 68 end?
+RES;Give me the grandchildren of Elvis Presley.
+NUM;When did the Ming dynasty dissolve?
+RES;In which military conflicts did Lawrence of Arabia participate?
+RES;What is the timezone in San Pedro de Atacama?
+RES;Give me all books by William Goldman with more than 300 pages.
+RES;What did Bruce Carver die from?
+RES;Which subsidiary of Lufthansa serves both Dortmund and Berlin Tegel?
+BOOL;Does Abraham Lincoln's death place have a website?
+BOOL;Did Elvis Presley have children?
+BOOL;Is Michelle Obama the wife of Barack Obama?
+RES;In which city does Sylvester Stallone live?
+RES;Which books by Kerouac were published by Viking Press?
+RES;Who wrote the song Hotel California?
+RES;What is the capital of Canada?
+RES;Who is the mayor of Tel Aviv?
+RES;What form of government does Russia have?
+RES;Show me the book that Muhammad Ali wrote.
+RES;Who was the first to climb Mount Everest?
+NUM;How many languages are spoken in Colombia?
+RES;What is the currency of the Czech Republic?
+RES;Where in France is sparkling wine produced?
+NUM;When did Boris Becker end his active career?
+RES;Which movies starring Mickey Rourke were directed by Guy Ritchie?
+RES;In which films did Julia Roberts as well as Richard Gere play?
+RES;Show me Hemingway's autobiography.
+NUM;How tall is Amazon Eve?
+RES;What are the five boroughs of New York?
+RES;Give me all Canadian Grunge record labels.
+RES;In which country does the Ganges start?
+RES;Who is the founder of Penguin Books?
+RES;Who wrote the Game of Thrones theme?
+RES;Who is the president of Eritrea?
+RES;In which city did John F. Kennedy die?
+RES;What is the highest mountain in Australia?
+RES;Who writes the Farmers' Almanac?
+RES;Give me the currency of China.
+RES;Give me all Swedish oceanographers.
+RES;In which city are the headquarters of the United Nations?
+BOOL;Is Rita Wilson the wife of Tom Hanks?
+RES;In which countries do people speak Japanese?
+RES;Which of Tim Burton's films had the highest budget?
+RES;Which museum in New York has the most visitors?
+RES;What was the first Queen album?
+RES;What was the first name of the band Queens of the Stone Age?
+RES;What was the last movie with Alec Guinness?
+RES;Give me all actors starring in Last Action Hero.
+RES;Who discovered Pluto?

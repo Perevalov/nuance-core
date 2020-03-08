@@ -2,8 +2,10 @@ import config
 import operator
 import os
 from resources.constants import KEYWORDS, FALLBACK_CLASS
+from nlu.classifiers.Classifier import Classifier
 
-class KeywordClassifier:
+
+class KeywordClassifier(Classifier):
     def __init__(self, intents, threshold=0.01):
         """
 
@@ -13,8 +15,8 @@ class KeywordClassifier:
         self.THRESHOLD = threshold
         self.intents = intents
 
-    def get_class(self, user_text):
-        #TODO add weights to keywords
+    def predict(self, user_text):
+        # TODO add weights to keywords
 
         scores_dict = dict()
 
@@ -22,9 +24,7 @@ class KeywordClassifier:
             keywords = self.intents[intent][KEYWORDS]
             score = 0
             for kw in keywords:
-                for word in user_text.split():
-                    if word == kw:
-                        score += 1
+                score += user_text.count(kw)
             scores_dict[intent] = score
 
         intent = max(scores_dict.items(), key=operator.itemgetter(1))[0]

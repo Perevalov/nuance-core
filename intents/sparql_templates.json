@@ -5,7 +5,7 @@
       "head": " SELECT ?a ?aLabel WHERE { ",
       "values": " VALUES ?p {{{values}}} . ",
       "body": " <{entity}> ?p ?a . OPTIONAL {{ ?a rdfs:label ?aLabel . FILTER(LANG(?aLabel) = \"en\") . }} ",
-      "closure": "}"
+      "closure": "} ORDER BY RAND() LIMIT 1"
     },
     "parameters_number": 1
   },
@@ -14,7 +14,7 @@
       "head": "SELECT ?a ?aLabel WHERE { ",
       "values": " VALUES ?p {{{values}}} . ",
       "body": " ?a ?p <{entity}> . OPTIONAL {{ ?a rdfs:label ?aLabel . FILTER(LANG(?aLabel) = \"en\") . }} ",
-      "closure": "}"
+      "closure": "} ORDER BY RAND() LIMIT 1"
     },
     "parameters_number": 1
   },
@@ -29,9 +29,18 @@
   "boolean": {
     "query": {
       "head": "PREFIX dbr: <http://dbpedia.org/resource/> ASK where { ",
-      "body": " <{entity_1}> <{relation}> <{entity_2}> . ",
+      "values": " VALUES ?p {{{values}}} . ",
+      "body": " <{entity_1}> ?p <{entity_2}> . ",
       "closure": " }"
     },
     "parameters_number": 2
+  },
+  "abstract": {
+    "query": {
+      "head": " SELECT ?a WHERE { ",
+      "body": " <{entity}> <http://dbpedia.org/ontology/abstract> ?a . FILTER(LANG(?a) = \"en\") . ",
+      "closure": "} LIMIT 1"
+    },
+    "parameters_number": 1
   }
 }
