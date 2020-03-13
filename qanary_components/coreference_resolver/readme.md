@@ -1,0 +1,2 @@
+# Coreference Resolver Qanary component
+
