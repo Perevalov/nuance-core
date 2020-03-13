@@ -18,4 +18,4 @@ Requirements:
 1. Start client side application by running following commands in nuance-core folder:
     1. ```sudo docker build -t nuance-web:latest .```
     1. ```sudo docker-compose up```
-1. Go to 127.0.0.1:41210 and enjoy the running application!
+1. Go to http://127.0.0.1:41210 and enjoy the running application!
