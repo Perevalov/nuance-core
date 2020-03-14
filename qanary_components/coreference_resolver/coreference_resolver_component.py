@@ -1,14 +1,12 @@
-from flask import Blueprint, Flask, render_template, jsonify, request
 import sys
-import uuid
+
+from flask import Blueprint, jsonify, request
 
 sys.path.insert(1, '../../')
 
 from resources.qanary_helpers import *
-import config
 from nlu.ner import coreference_resolver as coref
-from resources.constants import *
-from resources.utils import preprocess_text, map_template_and_relation_to_intent, find_best_string_match
+from resources.utils import preprocess_text, find_best_string_match
 
 coreference_resolver_component = Blueprint('coreference_resolver_component', __name__, template_folder='templates')
 
@@ -37,8 +35,9 @@ def qanaryService():
         qa_pair_id = get_most_recent_qa_pair(triplestore_endpoint, session_id)
         qa_pair = get_qa_text_from_graph(triplestore_endpoint, qa_pair_id)
 
-        # only examine
+        # if another question has previously been asked
         if qa_pair:
+            # only examine it at first
             question_1 = qa_pair["question_text"]
             answer = qa_pair["answer_text"]
             question_2 = text

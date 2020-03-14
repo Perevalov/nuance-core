@@ -42,6 +42,7 @@ def health():
     """required health endpoint for callback of Spring Boot Admin server"""
     return "alive"
 
+
 @app.route(aboutendpoint)
 def about():
     """optional endpoint for serving a web page with information about the web service"""
@@ -70,7 +71,7 @@ metadata = {
     "written in": "Python"
 }
 
-# initialize the registation object, to be send to the Spring Boot Admin server
+# initialize the registation object, to be sent to the Spring Boot Admin server
 myRegistration = Registration(
     name=configuration.servicename,
     serviceUrl="%s:%d" % (configuration.servicehost, configuration.serviceport),
@@ -78,7 +79,7 @@ myRegistration = Registration(
     metadata=metadata
 )
 
-# start a thread that will contact iteratively the Spring Boot Admin server
+# start a thread that will contact the Spring Boot Admin server iteratively
 registratorThread = Registrator(
     configuration.springbootadminserverurl,
     configuration.springbootadminserveruser,
