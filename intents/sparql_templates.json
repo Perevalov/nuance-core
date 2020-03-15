@@ -29,7 +29,8 @@
   "boolean": {
     "query": {
       "head": "PREFIX dbr: <http://dbpedia.org/resource/> ASK where { ",
-      "body": " <{entity_1}> <{relation}> <{entity_2}> . ",
+      "values": " VALUES ?p {{{values}}} . ",
+      "body": " <{entity_1}> ?p <{entity_2}> . ",
       "closure": " }"
     },
     "parameters_number": 2

@@ -23,7 +23,7 @@ COPY qanary_components qanary_components
 COPY resources resources
 COPY SPARQL SPARQL
 COPY test test
-COPY app.py config.py boot.sh ./
+COPY app.py config.py boot.sh cerence-db ./
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

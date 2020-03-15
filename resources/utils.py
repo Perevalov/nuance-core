@@ -65,7 +65,7 @@ def init_ml_classifiers():
 
     template_classifier = MLClassifier(template_classifier, template_vectorizer, template_encoder)
     fwd_bwd_classifier = MLClassifier(fwd_bwd_classifier, fwd_bwd_vectorizer, fwd_bwd_encoder)
-    relation_classifier = MLClassifier(relation_classifier, relation_vectorizer, relation_encoder, threshold=0.2)
+    relation_classifier = MLClassifier(relation_classifier, relation_vectorizer, relation_encoder, threshold=0.02)
 
     return template_classifier, fwd_bwd_classifier, relation_classifier
 
