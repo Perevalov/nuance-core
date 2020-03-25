@@ -1,8 +1,13 @@
-from flask import Blueprint, Flask, render_template, jsonify, request
+"""
+Different questions require different database search queries for retrieving their answer.
+Depending on the type of question we are dealing with, the template_classifier component
+determines which query template should be used and stores the result ...
+"""
+
+from flask import Blueprint, jsonify, request
 import pickle
 import os
 import sys
-import uuid
 
 sys.path.insert(1, '../../')
 
@@ -27,6 +32,7 @@ fwd_bwd_encoder = pickle.load(open(os.path.join(config.PROJECT_PATH, "models", "
 fwd_bwd_classifier = pickle.load(open(os.path.join(config.PROJECT_PATH, "models", "fwd_bwd_classifier.model"), 'rb'))
 
 fwd_bwd_classifier = MLClassifier(fwd_bwd_classifier, fwd_bwd_vectorizer, fwd_bwd_encoder)
+
 
 def tell_me_more_classifier(question_text):
     """
