@@ -1,3 +1,8 @@
+"""
+The coreference_resolver component tries to identify an entity in the previous question or the previous answer that
+the current question might refer to, and adds a link to entity to the current question's subgraph as oa:coreferenceURI
+"""
+
 import sys
 
 from flask import Blueprint, jsonify, request
