@@ -89,7 +89,7 @@ def qanaryService():
 
 @sparql_builder_component.route("/", methods=['GET'])
 def index():
-    """an examplary GET endpoint returning "hello world2 (String)"""
+    """an exemplary GET endpoint returning "hello world2 (String)"""
     print(request.host_url)
     return "Hello, World!"
 

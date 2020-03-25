@@ -224,6 +224,7 @@ def get_answer_uri(triplestore_endpoint, graph):
 
     return uri
 
+
 def get_annotation_and_intent(triplestore_endpoint, graph):
     import ast
 
