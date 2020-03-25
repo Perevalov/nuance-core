@@ -36,6 +36,7 @@ def tell_me_more_classifier(question_text):
     """
     return "tell me more" in question_text.lower()
 
+
 @template_classifier_component.route("/annotatequestion", methods=['POST'])
 def qanaryService():
     """the POST endpoint required for a Qanary service"""

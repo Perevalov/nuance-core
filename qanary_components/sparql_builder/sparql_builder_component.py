@@ -1,3 +1,8 @@
+"""
+The SPARQLBuilder component generates a SPARQL query that can be used to retrieve the question's potential answer from
+DBPedia Spotlight.
+"""
+
 from flask import Blueprint, Flask, render_template, jsonify, request
 import os
 import sys
@@ -19,12 +24,13 @@ with open(os.path.join(config.INTENTS_PATH, "sparql_templates.json")) as json_fi
 with open(os.path.join(config.INTENTS_PATH, "intents.json")) as json_file:
     intents = json.load(json_file)
 
+
 @sparql_builder_component.route("/annotatequestion", methods=['POST'])
 def qanaryService():
     """the POST endpoint required for a Qanary service"""
-    
+
     triplestore_endpoint = request.json["values"]["urn:qanary#endpoint"]
-    triplestore_ingraph  = request.json["values"]["urn:qanary#inGraph"]
+    triplestore_ingraph = request.json["values"]["urn:qanary#inGraph"]
     triplestore_outgraph = request.json["values"]["urn:qanary#outGraph"]
     print(triplestore_ingraph)
     print("endpoint: %s, ingraph: %s, outGraph: %s" % (triplestore_endpoint, triplestore_ingraph, triplestore_outgraph))
@@ -42,8 +48,8 @@ def qanaryService():
                         """.format(graph_guid=triplestore_ingraph)
 
     validation_result = get_validation_result(triplestore_endpoint=triplestore_endpoint,
-                                                   graph=triplestore_ingraph,
-                                                   SPARQLquery=SPARQLquery)
+                                              graph=triplestore_ingraph,
+                                              SPARQLquery=SPARQLquery)
 
     if not validation_result:
         return jsonify(request.get_json())
@@ -54,7 +60,7 @@ def qanaryService():
     if intent == TELL_ME_MORE_TEMPLATE:
         annotation = get_coreference_uri(triplestore_endpoint=triplestore_endpoint,
                                          graph=triplestore_ingraph)
-        
+
     sparql_builder = SPARQLBuilder(sparql_templates)
     query_type = intents[intent][QUERY_TYPE]
 
@@ -79,6 +85,7 @@ def qanaryService():
     insert_into_triplestore(triplestore_endpoint, triplestore_ingraph, SPARQLquery)
 
     return jsonify(request.get_json())
+
 
 @sparql_builder_component.route("/", methods=['GET'])
 def index():
