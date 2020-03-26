@@ -1,3 +1,8 @@
+"""
+If two or more of the current question's entities are related in a way not governed by the query template,
+the relation_classifier component will resolve the relation and store it to the current question's subgraph as
+oa:relation
+"""
 from flask import Blueprint, Flask, render_template, jsonify, request
 import pickle
 import os
