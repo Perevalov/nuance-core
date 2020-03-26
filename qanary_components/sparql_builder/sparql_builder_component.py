@@ -1,5 +1,5 @@
 """
-The SPARQLBuilder component generates a SPARQL query that can be used to retrieve the question's potential answer from
+The sparql_builder component generates a SPARQL query that can be used to retrieve the question's potential answer from
 DBPedia Spotlight.
 """
 

@@ -1,3 +1,7 @@
+"""
+The sparql_worker component executes the current question's sparql query saved under oa:sparqlQuery on the DBpedia API
+and stores the result under oa:sparqlResult in the current question's subgraph
+"""
 from flask import Blueprint, Flask, render_template, jsonify, request
 import os
 import sys

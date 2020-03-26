@@ -22,7 +22,7 @@ from resources.utils import preprocess_text, map_template_and_relation_to_intent
 
 relation_classifier_component = Blueprint('relation_classifier_component', __name__, template_folder='templates')
 
-#loading the model
+# loading the model
 relation_vectorizer = pickle.load(open(os.path.join(config.PROJECT_PATH, "models", "relation_vectorizer.model"), 'rb'))
 relation_encoder = pickle.load(open(os.path.join(config.PROJECT_PATH, "models", "relation_encoder.model"), 'rb'))
 relation_classifier = pickle.load(open(os.path.join(config.PROJECT_PATH, "models", "relation_classifier.model"), 'rb'))
@@ -32,12 +32,13 @@ relation_classifier = MLClassifier(relation_classifier, relation_vectorizer, rel
 with open(os.path.join(config.INTENTS_PATH, "intents.json")) as json_file:
     intents = json.load(json_file)
 
+
 @relation_classifier_component.route("/annotatequestion", methods=['POST'])
 def qanaryService():
     """the POST endpoint required for a Qanary service"""
-    
+
     triplestore_endpoint = request.json["values"]["urn:qanary#endpoint"]
-    triplestore_ingraph  = request.json["values"]["urn:qanary#inGraph"]
+    triplestore_ingraph = request.json["values"]["urn:qanary#inGraph"]
     triplestore_outgraph = request.json["values"]["urn:qanary#outGraph"]
 
     text = get_text_question_in_graph(triplestore_endpoint=triplestore_endpoint, graph=triplestore_ingraph)[0]['text']
@@ -92,9 +93,10 @@ def qanaryService():
     print(triplestore_ingraph)
     print("endpoint: %s, ingraph: %s, outGraph: %s" % (triplestore_endpoint, triplestore_ingraph, triplestore_outgraph))
 
-	# add your functionality here    
+    # add your functionality here
 
     return jsonify(request.get_json())
+
 
 @relation_classifier_component.route("/", methods=['GET'])
 def index():
