@@ -2,28 +2,22 @@
 The sparql_worker component executes the current question's sparql query saved under oa:sparqlQuery on the DBpedia API
 and stores the result under oa:sparqlResult in the current question's subgraph
 """
-from flask import Blueprint, Flask, render_template, jsonify, request
-import os
 import sys
-import uuid
-import json
+
+from flask import Blueprint, jsonify, request
 
 sys.path.insert(1, '../../')
 
 from resources.qanary_helpers import *
-import config
-from SPARQL.sparql_builder import SPARQLBuilder
-from resources.constants import *
 from dblayer import SPARQLWorker
 
 sparql_worker_component = Blueprint('sparql_worker_component', __name__, template_folder='templates')
 
-from dblayer import SPARQLWorker as sparql
 
 @sparql_worker_component.route("/annotatequestion", methods=['POST'])
 def qanaryService():
     """the POST endpoint required for a Qanary service"""
-    
+
     triplestore_endpoint = request.json["values"]["urn:qanary#endpoint"]
     triplestore_ingraph  = request.json["values"]["urn:qanary#inGraph"]
     triplestore_outgraph = request.json["values"]["urn:qanary#outGraph"]
@@ -66,12 +60,11 @@ def qanaryService():
                                                    SPARQLquery=SPARQLquery)
 
     result = SPARQLWorker.execute_query({"query": sparql_query})
-    #TODO: &quot; &apos;
+    # TODO: &quot; &apos;
     try:
         result['results']['bindings'][0]['a']['value'] = result['results']['bindings'][0]['a']['value'].replace("\"", "").replace("\'", "")
     except:
         print("BAD conversion")
-
 
     guid = str(uuid.uuid4())
 
@@ -90,6 +83,7 @@ def qanaryService():
     insert_into_triplestore(triplestore_endpoint, triplestore_ingraph, SPARQLquery)
 
     return jsonify(request.get_json())
+
 
 @sparql_worker_component.route("/", methods=['GET'])
 def index():
