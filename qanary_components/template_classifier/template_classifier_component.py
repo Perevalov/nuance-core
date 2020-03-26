@@ -1,7 +1,7 @@
 """
 Different questions require different database search queries for retrieving their answer.
 Depending on the type of question we are dealing with, the template_classifier component
-determines which query template should be used and stores the result ...
+determines which query template should be used and stores the result as oa:templateType into the question's subgraph
 """
 
 from flask import Blueprint, jsonify, request
