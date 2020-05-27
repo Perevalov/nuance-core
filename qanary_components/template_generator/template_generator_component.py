@@ -1,3 +1,7 @@
+"""
+The component generates a natural language answer to the user's question from a well-defined set of templates.
+"""
+
 from flask import Blueprint, Flask, render_template, jsonify, request
 import os
 import sys
@@ -40,6 +44,7 @@ def get_text_answer():
                                                    SPARQLquery=SPARQLquery)
 
     return jsonify({"answer": text_response})
+
 
 @template_generator_component.route("/annotatequestion", methods=['POST'])
 def qanaryService():
