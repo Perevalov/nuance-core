@@ -3,7 +3,7 @@ import string
 from resources.constants import TEMPLATES, TELL_ME_MORE_TEMPLATE, WHAT_I_SEE_INTENT
 
 
-def generate_answer(intents_dict, intent, sparql_result, annotation_dict):
+def generate_answer(intents_dict: dict, intent: str, sparql_result: dict, annotation_dict: dict):
     """
 
     :param intents_dict: dictionary filled with intent classes with their corresponding:

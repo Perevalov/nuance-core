@@ -1,3 +1,8 @@
+"""
+The question_validator component checks if the number of parameters in the recognized question's query type
+equals retrieved parameters from NED component.
+"""
+
 from flask import Blueprint, Flask, render_template, jsonify, request
 import pickle
 import os
